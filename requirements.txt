@@ -1,0 +1,2 @@
+python-escpos>=3.1
+pywin32; sys_platform == "win32"

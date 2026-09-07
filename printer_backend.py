@@ -54,6 +54,16 @@ def _require_escpos():
         ) from exc
 
 
+def _require_pyusb():
+    try:
+        import usb.core  # noqa: F401
+    except ImportError as exc:
+        raise PrinterSetupError(
+            "Falta instalar 'pyusb' (necesario para el backend USB directo). "
+            "Corré: pip install pyusb"
+        ) from exc
+
+
 def open_printer(config: PrinterConfig):
     """Abre y devuelve un objeto impresora de python-escpos según el backend elegido."""
     _require_escpos()
@@ -62,16 +72,21 @@ def open_printer(config: PrinterConfig):
     if config.backend == "usb":
         if config.vendor_id is None or config.product_id is None:
             raise PrinterSetupError("Faltan Vendor ID / Product ID para la conexión USB.")
+        _require_pyusb()
         try:
             return Usb(config.vendor_id, config.product_id, 0)
-        except Exception as exc:  # pyusb / permisos / driver
+        except Exception as exc:  # dispositivo no encontrado / permisos / driver
             raise PrinterSetupError(
-                "No se pudo abrir la impresora por USB. En Windows necesitás "
-                "reemplazar el driver del puerto USB de la impresora por 'libusb-win32' "
-                "usando la herramienta Zadig (https://zadig.akeo.ie/) -- ojo que esto "
-                "puede sacarla de la cola de impresión normal de Windows. Si preferís "
-                "no tocar el driver, instalá la impresora normalmente en Windows y "
-                "usá el backend 'win32' en su lugar.\n\nDetalle técnico: "
+                "No se pudo abrir la impresora por USB con Vendor ID "
+                f"{config.vendor_id:#06x} / Product ID {config.product_id:#06x}. "
+                "En Windows necesitás reemplazar el driver del puerto USB de la "
+                "impresora por 'libusb-win32' usando la herramienta Zadig "
+                "(https://zadig.akeo.ie/) -- Zadig también te muestra el Vendor ID "
+                "y Product ID correctos del dispositivo, más fácil que buscarlos en "
+                "el Administrador de dispositivos. Ojo: esto puede sacar la impresora "
+                "de la cola de impresión normal de Windows mientras tenga ese driver. "
+                "Si preferís no tocar el driver, instalá la impresora normalmente en "
+                "Windows y usá el backend 'win32' en su lugar.\n\nDetalle técnico: "
                 f"{exc}"
             ) from exc
 

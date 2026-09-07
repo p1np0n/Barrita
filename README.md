@@ -78,12 +78,17 @@ ZPL da lo esperado antes de conectar el hardware.
 Algunas impresoras térmicas baratas no traen driver de Windows y solo se
 pueden hablar directo por USB. Para eso:
 
-- **Windows**: instalá [Zadig](https://zadig.akeo.ie/), seleccioná la
-  impresora y reemplazá su driver por `libusb-win32`. Después, en la app,
-  elegí conexión **"USB directo"** y completá el Vendor ID / Product ID que
-  te muestra Zadig (formato `0x04b8`). Ojo: esto saca la impresora de la cola
-  de impresión normal de Windows — no vas a poder imprimir tickets desde
-  otros programas mientras tenga ese driver.
+- **Windows**: instalá [Zadig](https://zadig.akeo.ie/), abrí Options →
+  List All Devices, seleccioná tu impresora en el desplegable y reemplazá su
+  driver por `libusb-win32` (botón "Replace Driver" / "Install Driver").
+  Zadig te muestra ahí mismo el **Vendor ID (VID)** y **Product ID (PID)**
+  del dispositivo, en formato `0x04B8` — copialos tal cual. Después, en la
+  app, elegí conexión **"USB directo"** y completá esos dos valores. Ojo:
+  esto saca la impresora de la cola de impresión normal de Windows — no vas
+  a poder imprimir tickets desde otros programas (ni usar el backend
+  "Impresora de Windows") mientras tenga ese driver instalado; si querés
+  volver atrás, desinstalá el driver desde el Administrador de dispositivos
+  y Windows vuelve a instalar el driver original.
 - **Linux**: normalmente aparece sola como `/dev/usb/lp0`. Elegí conexión
   **"Dispositivo Linux"** y esa ruta (puede que necesites agregarte al grupo
   `lp`: `sudo usermod -aG lp $USER`, y reiniciar sesión).

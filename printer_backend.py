@@ -119,10 +119,27 @@ def list_windows_printers() -> list[str]:
     return [p[2] for p in win32print.EnumPrinters(flags)]
 
 
-def print_group(printer, group: LabelGroup, ancho_mm: int, copies: Optional[int] = None) -> None:
-    """Imprime `copies` etiquetas (por defecto, la cantidad detectada en el ZPL)."""
+def print_group(
+    printer,
+    group: LabelGroup,
+    ancho_mm: float,
+    copies: Optional[int] = None,
+    alto_mm: Optional[float] = None,
+    cut: bool = True,
+    barcode_height: int = 64,
+) -> None:
+    """Imprime `copies` etiquetas (por defecto, la cantidad detectada en el ZPL).
+
+    `alto_mm` es opcional: si se especifica (etiqueta troquelada de alto
+    fijo, ej. 25mm), se usa para no meter más líneas de descripción de las
+    que entran antes de la etiqueta siguiente. `cut` controla si se manda el
+    comando de corte de papel (GS V) después de cada etiqueta -- muchas
+    impresoras de etiquetas chicas no tienen cuchilla automática (usan
+    despegado manual) y algunas se cuelgan o ignoran el resto del trabajo si
+    reciben ese comando sin soportarlo, así que conviene poder desactivarlo.
+    """
     n = group.quantity if copies is None else copies
-    text_lines = build_label_text_block(group, ancho_mm)
+    text_lines = build_label_text_block(group, ancho_mm, alto_mm)
 
     # python-escpos exige el "code set" de CODE128 como prefijo del dato
     # ({A/{B/{C) -- si no, el comando ESC/POS queda mal formado y la
@@ -136,7 +153,7 @@ def print_group(printer, group: LabelGroup, ancho_mm: int, copies: Optional[int]
         printer.barcode(
             barcode_data,
             "CODE128",
-            height=64,
+            height=barcode_height,
             width=2,
             pos="BELOW",   # imprime el texto legible del código debajo de las barras
             align_ct=True,
@@ -145,19 +162,51 @@ def print_group(printer, group: LabelGroup, ancho_mm: int, copies: Optional[int]
         for line in text_lines:
             printer.text(line + "\n")
         printer.text("\n")
+        if cut:
+            printer.cut()
+
+
+def print_batch(
+    printer,
+    groups: list[LabelGroup],
+    ancho_mm: float,
+    alto_mm: Optional[float] = None,
+    cut: bool = True,
+    barcode_height: int = 64,
+) -> None:
+    for g in groups:
+        print_group(printer, g, ancho_mm, alto_mm=alto_mm, cut=cut, barcode_height=barcode_height)
+
+
+def print_test_label(printer, ancho_mm: float = 50, cut: bool = True) -> None:
+    """Imprime una etiqueta simple de solo texto (sin código de barras).
+
+    Sirve para probar que la conexión con la impresora funciona de punta a
+    punta sin depender del comando de código de barras: si esto tampoco
+    imprime nada, el problema está en la conexión/driver, no en el ZPL ni en
+    el formato del barcode.
+    """
+    printer.set(align="center", bold=True)
+    printer.text("PRUEBA DE IMPRESION\n")
+    printer.set(align="center", bold=False)
+    printer.text(f"Ancho configurado: {ancho_mm}mm\n")
+    printer.text("Si ves este texto, la conexion funciona.\n")
+    printer.text("\n")
+    if cut:
         printer.cut()
 
 
-def print_batch(printer, groups: list[LabelGroup], ancho_mm: int) -> None:
-    for g in groups:
-        print_group(printer, g, ancho_mm)
-
-
-def render_batch_to_dummy_bytes(groups: list[LabelGroup], ancho_mm: int) -> bytes:
+def render_batch_to_dummy_bytes(
+    groups: list[LabelGroup],
+    ancho_mm: float,
+    alto_mm: Optional[float] = None,
+    cut: bool = True,
+    barcode_height: int = 64,
+) -> bytes:
     """Genera los bytes ESC/POS del trabajo completo sin enviarlos a ninguna impresora."""
     _require_escpos()
     from escpos.printer import Dummy
 
     dummy = Dummy()
-    print_batch(dummy, groups, ancho_mm)
+    print_batch(dummy, groups, ancho_mm, alto_mm=alto_mm, cut=cut, barcode_height=barcode_height)
     return dummy.output

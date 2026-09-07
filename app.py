@@ -21,6 +21,7 @@ import queue
 import threading
 import tkinter as tk
 from tkinter import filedialog, messagebox, simpledialog, ttk
+from typing import Optional
 
 from printer_backend import (
     PrinterConfig,
@@ -28,6 +29,7 @@ from printer_backend import (
     list_windows_printers,
     open_printer,
     print_group,
+    print_test_label,
 )
 from zpl_parser import LabelGroup, group_labels, parse_zpl_file
 
@@ -86,14 +88,41 @@ class App(tk.Tk):
         cfg = ttk.LabelFrame(self, text="Impresora", padding=8)
         cfg.pack(fill="x", padx=8, pady=6)
 
-        ttk.Label(cfg, text="Ancho del rollo:").grid(row=0, column=0, sticky="w")
-        self.ancho_var = tk.StringVar(value="80")
+        ttk.Label(cfg, text="Ancho de etiqueta:").grid(row=0, column=0, sticky="w")
+        self.ancho_var = tk.StringVar(value="50")
         ttk.Combobox(
-            cfg, textvariable=self.ancho_var, values=["58", "80"], width=6, state="readonly"
+            cfg,
+            textvariable=self.ancho_var,
+            values=["32", "40", "50", "58", "80", "100"],
+            width=6,
         ).grid(row=0, column=1, sticky="w", padx=4)
-        ttk.Label(cfg, text="mm").grid(row=0, column=2, sticky="w")
+        ttk.Label(cfg, text="mm  ×  Alto de etiqueta:").grid(row=0, column=2, sticky="w", padx=(10, 0))
+        self.alto_var = tk.StringVar(value="25")
+        ttk.Combobox(
+            cfg,
+            textvariable=self.alto_var,
+            values=["", "25", "30", "40", "50", "80"],
+            width=6,
+        ).grid(row=0, column=3, sticky="w", padx=4)
+        ttk.Label(cfg, text="mm").grid(row=0, column=4, sticky="w")
+        hint_size = ttk.Label(
+            cfg,
+            text=(
+                "Poné el tamaño de la etiqueta individual (no el ancho total del rollo). "
+                "Alto vacío = rollo continuo, sin etiquetas troqueladas."
+            ),
+            foreground="#666",
+        )
+        hint_size.grid(row=1, column=0, columnspan=5, sticky="w", pady=(2, 0))
 
-        ttk.Label(cfg, text="Conexión:").grid(row=1, column=0, sticky="w", pady=(6, 0))
+        self.cut_var = tk.BooleanVar(value=True)
+        ttk.Checkbutton(
+            cfg,
+            text="Cortar automáticamente después de cada etiqueta (desmarcá si tu impresora no tiene cuchilla)",
+            variable=self.cut_var,
+        ).grid(row=2, column=0, columnspan=5, sticky="w", pady=(4, 0))
+
+        ttk.Label(cfg, text="Conexión:").grid(row=3, column=0, sticky="w", pady=(6, 0))
         default_backend = "win32" if platform.system() == "Windows" else "dummy"
         self.backend_var = tk.StringVar(value=default_backend)
         backend_combo = ttk.Combobox(
@@ -103,15 +132,15 @@ class App(tk.Tk):
             state="readonly",
             width=12,
         )
-        backend_combo.grid(row=1, column=1, sticky="w", padx=4, pady=(6, 0))
+        backend_combo.grid(row=3, column=1, sticky="w", padx=4, pady=(6, 0))
         backend_combo.bind("<<ComboboxSelected>>", lambda e: self._refresh_backend_fields())
 
         self.backend_desc = ttk.Label(cfg, text=BACKEND_LABELS[default_backend], foreground="#666")
-        self.backend_desc.grid(row=1, column=2, columnspan=3, sticky="w", pady=(6, 0))
+        self.backend_desc.grid(row=3, column=2, columnspan=3, sticky="w", pady=(6, 0))
 
         # Campos específicos por backend (se muestran/ocultan dinámicamente)
         self.backend_fields_frame = ttk.Frame(cfg)
-        self.backend_fields_frame.grid(row=2, column=0, columnspan=5, sticky="we", pady=(6, 0))
+        self.backend_fields_frame.grid(row=4, column=0, columnspan=5, sticky="we", pady=(6, 0))
 
         self.win32_printer_var = tk.StringVar()
         self.usb_vendor_var = tk.StringVar(value="0x0000")
@@ -125,6 +154,9 @@ class App(tk.Tk):
         actions = ttk.Frame(self, padding=8)
         actions.pack(fill="x")
         ttk.Button(actions, text="Probar conexión", command=self.on_test_connection).pack(side="left")
+        ttk.Button(
+            actions, text="Imprimir prueba de texto (sin código de barras)", command=self.on_print_test
+        ).pack(side="left", padx=6)
         ttk.Button(actions, text="Imprimir seleccionadas", command=self.on_print_selected).pack(
             side="left", padx=6
         )
@@ -270,18 +302,85 @@ class App(tk.Tk):
             return
         self._print_groups(self.groups)
 
-    def _print_groups(self, groups: list[LabelGroup]):
+    def _parse_ancho_alto(self) -> tuple[float, Optional[float]]:
+        ancho_raw = self.ancho_var.get().strip().replace(",", ".")
+        alto_raw = self.alto_var.get().strip().replace(",", ".")
         try:
-            ancho_mm = int(self.ancho_var.get())
+            ancho_mm = float(ancho_raw)
+        except ValueError:
+            raise PrinterSetupError(f"El ancho de etiqueta '{ancho_raw}' no es un número válido (en mm).")
+        alto_mm: Optional[float] = None
+        if alto_raw:
+            try:
+                alto_mm = float(alto_raw)
+            except ValueError:
+                raise PrinterSetupError(f"El alto de etiqueta '{alto_raw}' no es un número válido (en mm).")
+        return ancho_mm, alto_mm
+
+    def on_print_test(self):
+        try:
+            ancho_mm, _alto_mm = self._parse_ancho_alto()
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
             return
 
-        thread = threading.Thread(target=self._print_worker, args=(groups, ancho_mm, config), daemon=True)
+        thread = threading.Thread(
+            target=self._print_test_worker, args=(ancho_mm, config), daemon=True
+        )
         thread.start()
 
-    def _print_worker(self, groups: list[LabelGroup], ancho_mm: int, config: PrinterConfig):
+    def _print_test_worker(self, ancho_mm: float, config: PrinterConfig):
+        self.log_queue.put("Imprimiendo etiqueta de prueba (solo texto, sin código de barras)…")
+        try:
+            printer = open_printer(config)
+        except PrinterSetupError as exc:
+            self.log_queue.put(f"ERROR: {exc}")
+            return
+        try:
+            print_test_label(printer, ancho_mm=ancho_mm, cut=self.cut_var.get())
+            if config.backend == "dummy":
+                data = getattr(printer, "output", b"")
+                path = config.dummy_output_path or "etiquetas_escpos.bin"
+                with open(path, "wb") as f:
+                    f.write(data)
+                self.log_queue.put(f"Guardado en {path} ({len(data)} bytes). No se envió a ninguna impresora.")
+            self.log_queue.put(
+                "Listo. Si no salió nada de la impresora, el problema es de conexión/driver "
+                "(probá otro backend, o desmarcá 'Cortar automáticamente' si tu impresora no tiene cuchilla)."
+            )
+        except Exception as exc:
+            self.log_queue.put(f"ERROR durante la impresión de prueba: {exc}")
+        finally:
+            close = getattr(printer, "close", None)
+            if close:
+                try:
+                    close()
+                except Exception:
+                    pass
+
+    def _print_groups(self, groups: list[LabelGroup]):
+        try:
+            ancho_mm, alto_mm = self._parse_ancho_alto()
+            config = self._build_printer_config()
+        except PrinterSetupError as exc:
+            messagebox.showerror("Configuración inválida", str(exc))
+            return
+
+        cut = self.cut_var.get()
+        thread = threading.Thread(
+            target=self._print_worker, args=(groups, ancho_mm, alto_mm, cut, config), daemon=True
+        )
+        thread.start()
+
+    def _print_worker(
+        self,
+        groups: list[LabelGroup],
+        ancho_mm: float,
+        alto_mm: Optional[float],
+        cut: bool,
+        config: PrinterConfig,
+    ):
         try:
             printer = open_printer(config)
         except PrinterSetupError as exc:
@@ -293,7 +392,7 @@ class App(tk.Tk):
         done = 0
         try:
             for g in groups:
-                print_group(printer, g, ancho_mm)
+                print_group(printer, g, ancho_mm, alto_mm=alto_mm, cut=cut)
                 done += g.quantity
                 self.log_queue.put(f"  OK: {g.code} x{g.quantity} ({done}/{total})")
 

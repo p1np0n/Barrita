@@ -21,7 +21,8 @@ def redondear(valor, paso=10):
 def main():
     productos = json.loads((AQUI / "productos_shopify.json").read_text(encoding="utf-8"))
     filas = []
-    for p in productos:
+    # Los packs (dados y kit de inicio) son exclusivos de la tienda web.
+    for p in (p for p in productos if not p.get("exclusivo_web")):
         fila = {
             "Producto": p["producto"],
             "Categoría": p["tipo"],

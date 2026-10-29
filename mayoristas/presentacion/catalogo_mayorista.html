@@ -1,38 +1,95 @@
 <!doctype html><html lang=es><meta charset=utf-8><style>
-@page { size: A4; margin: 16mm 14mm; }
-body { font: 10.5pt/1.45 'Helvetica Neue', Arial, sans-serif; color:#18202b; }
-h1 { font-size: 30pt; margin: 0; letter-spacing: -.01em; }
-h1 span { color:#b07a12; }
-h2 { font-size: 14pt; margin: 18px 0 8px; border-bottom: 2px solid #b07a12; padding-bottom: 4px; }
-.band { background:#1c2633; color:#eef1f5; padding: 18px 20px; border-radius: 6px; }
-.band p { margin: 6px 0 0; color:#c9d2dd; max-width: 150mm; }
-.tiers { display:flex; gap:10px; margin-top: 12px; }
-.tier { flex:1; border:1px solid #dde1e7; border-radius:6px; padding:10px 12px; }
-.tier span { font-weight:700; text-transform:uppercase; font-size:9pt; letter-spacing:.08em; color:#5b6575; }
-.tier b { display:block; font-size:24pt; color:#b07a12; }
-.tier small { color:#5b6575; }
-table { width:100%; border-collapse:collapse; font-size:9.5pt; }
-th, td { padding:6px 6px; border-bottom:1px solid #dde1e7; text-align:left; vertical-align:top; }
-th { font-size:8pt; text-transform:uppercase; letter-spacing:.05em; color:#5b6575; }
+@page { size: A4; margin: 0; }
+* { box-sizing: border-box; }
+body { margin:0; font: 10pt/1.45 'Helvetica Neue', Arial, sans-serif; color:#18202b; }
+.page { width:210mm; min-height:297mm; padding:14mm 13mm; page-break-after: always; position:relative; }
+.cover { background:#141c26; color:#eef1f5; padding:0; }
+.cover .top { padding:26mm 16mm 12mm; }
+.cover .kicker { letter-spacing:.24em; text-transform:uppercase; font-size:9pt; color:#d9a441; }
+.cover h1 { font-size:44pt; line-height:.98; margin:6mm 0 5mm; letter-spacing:-.02em; }
+.cover h1 span { color:#d9a441; }
+.cover p.lead { font-size:12.5pt; color:#c3ccd8; max-width:150mm; margin:0; }
+.cover .tiers { display:flex; gap:5mm; padding:0 16mm; }
+.tier { flex:1; background:#1f2a37; border:1px solid #33414f; border-radius:3mm; padding:6mm 5mm; }
+.tier span { text-transform:uppercase; letter-spacing:.14em; font-size:8.5pt; color:#9fb0c3; }
+.tier b { display:block; font-size:38pt; line-height:1.05; color:#fff; margin-top:2mm; }
+.tier b i { font-style:normal; font-size:20pt; color:#d9a441; margin-left:1mm; }
+.tier small { display:block; color:#c3ccd8; }
+.tier em { display:block; font-style:normal; margin-top:3mm; padding-top:3mm; border-top:1px solid #33414f; font-weight:700; color:#d9a441; }
+.cover .pasos { margin:10mm 16mm 0; display:grid; grid-template-columns:repeat(3,1fr); gap:5mm; }
+.paso b { display:block; color:#fff; margin-bottom:1mm; }
+.paso { color:#aab6c4; font-size:9.5pt; border-top:2px solid #d9a441; padding-top:3mm; }
+.cover .pie { position:absolute; left:16mm; right:16mm; bottom:14mm; display:flex; justify-content:space-between; color:#9fb0c3; font-size:9pt; border-top:1px solid #33414f; padding-top:4mm; }
+.cover .pie b { color:#fff; }
+h2 { font-size:20pt; margin:0 0 1mm; letter-spacing:-.01em; }
+.bajada { color:#5b6575; margin:0 0 6mm; }
+.grid { display:grid; grid-template-columns:1fr 1fr; gap:5mm; }
+.card { border:1px solid #dde1e7; border-radius:3mm; overflow:hidden; display:flex; flex-direction:column; break-inside:avoid; }
+.foto { height:46mm; background:#f4f5f7; display:flex; align-items:center; justify-content:center; }
+.foto img { max-height:42mm; max-width:90%; object-fit:contain; }
+.vacia { background: repeating-linear-gradient(135deg,#f1f3f6 0 6px,#e9ecf0 6px 12px); }
+.vacia span { text-transform:uppercase; letter-spacing:.14em; font-size:8pt; color:#8a94a3; background:#fff; padding:1mm 3mm; border-radius:2mm; }
+.info { padding:4mm 4.5mm 4.5mm; display:flex; flex-direction:column; gap:1mm; flex:1; }
+.info h3 { margin:0; font-size:12.5pt; }
+.ficha { margin:0; color:#b07a12; font-weight:700; font-size:8.8pt; }
+.arg { margin:0 0 2mm; color:#5b6575; font-size:9pt; }
+.precios { margin-top:auto; display:grid; grid-template-columns:repeat(4,1fr); border-top:1px solid #dde1e7; padding-top:2.5mm; }
+.precios small { display:block; font-size:7.5pt; text-transform:uppercase; letter-spacing:.06em; color:#8a94a3; }
+.precios b { font-size:10.5pt; }
+.precios .pvp b { color:#8a94a3; text-decoration:line-through; font-weight:400; }
+.precios div:last-child b { color:#b07a12; }
+table { width:100%; border-collapse:collapse; font-size:9.3pt; }
+th, td { padding:2.2mm 2mm; border-bottom:1px solid #e3e6ea; text-align:left; vertical-align:middle; }
+th { font-size:7.5pt; text-transform:uppercase; letter-spacing:.06em; color:#5b6575; }
 .n { text-align:right; white-space:nowrap; }
-.sub { color:#5b6575; font-size:8.5pt; }
-ul { margin: 6px 0; padding-left: 18px; }
-.foot { margin-top: 14px; font-size: 9pt; color:#5b6575; }
-.pb { page-break-before: always; }
+.sub { color:#5b6575; font-size:8.3pt; }
+.mini { width:16mm; }
+.thumb { width:14mm; height:14mm; border-radius:2mm; background:#f4f5f7; display:flex; align-items:center; justify-content:center; overflow:hidden; }
+.thumb img { max-width:100%; max-height:100%; object-fit:contain; }
+.thumb.vacia span { display:none; }
+.notas { margin-top:7mm; display:grid; grid-template-columns:1fr 1fr; gap:6mm; font-size:9pt; color:#3a4452; }
+.notas b { display:block; color:#18202b; margin-bottom:1mm; }
+.folio { position:absolute; bottom:8mm; left:13mm; right:13mm; display:flex; justify-content:space-between; font-size:8pt; color:#8a94a3; }
 </style>
-<div class=band><h1>Over Power Armor <span>· Mayoristas</span></h1>
-<p>Accesorios para cartas coleccionables (Pokémon, One Piece, Magic, Yu-Gi-Oh! y más), con despacho desde Maipú a todo Chile. Precios para tiendas con 20 % a 30 % de margen, vendiendo a nuestro precio público sugerido.</p></div>
-<h2>Niveles para tiendas</h2>
-<div class=tiers><div class=tier><span>Bronce</span><b>20 %</b><small>margen para tu tienda<br>pedido desde $60.000</small></div><div class=tier><span>Plata</span><b>25 %</b><small>margen para tu tienda<br>pedido desde $150.000</small></div><div class=tier><span>Oro</span><b>30 %</b><small>margen para tu tienda<br>pedido desde $300.000</small></div></div>
-<ul>
-<li>El margen se calcula sobre el precio público: tu tienda compra al precio del nivel y vende al precio sugerido.</li>
-<li>El monto mínimo se mide a precio público. Precios en pesos chilenos con IVA incluido.</li>
-<li>Compras en overpowerarmor.cl con tu cuenta de empresa y el código del nivel, o por transferencia.</li>
-</ul>
-<h2>Productos estrella</h2>
-<table><tr><th>Producto</th><th class=n>Precio público</th><th class=n>Bronce (20 %)</th><th class=n>Plata (25 %)</th><th class=n>Oro (30 %)</th></tr><tr><td><b>Protectores Penny Sleeves - Fit 65x90 (100 u.)</b><div class=sub>El más vendido. Pokémon, Magic y One Piece.</div></td><td class=n>$2.690</td><td class=n>$2.150</td><td class=n>$2.020</td><td class=n>$1.880</td></tr><tr><td><b>Protectores Penny Sleeves - Perfect Fit 64x89 (100 u.)</b><div class=sub>Ajuste interior para doble enfundado.</div></td><td class=n>$2.690</td><td class=n>$2.150</td><td class=n>$2.020</td><td class=n>$1.880</td></tr><tr><td><b>Protector Over Sleeve Rugosos 69x94</b><div class=sub>Exterior mate rugoso, ideal para torneos.</div></td><td class=n>$4.490</td><td class=n>$3.590</td><td class=n>$3.370</td><td class=n>$3.140</td></tr><tr><td><b>25 Toploaders 35PT</b><div class=sub>Rígidos, libres de ácido y PVC.</div></td><td class=n>$7.990</td><td class=n>$6.390</td><td class=n>$5.990</td><td class=n>$5.590</td></tr><tr><td><b>Playmate Impermeable Ecocuero</b><div class=sub>Negro, púrpura y rojo. Base antideslizante.</div></td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td><b>Deck Box - Porta Mazo 80+</b><div class=sub>Rotación rápida en mesón, precio de impulso.</div></td><td class=n>$1.990</td><td class=n>$1.590</td><td class=n>$1.490</td><td class=n>$1.390</td></tr><tr><td><b>Grading Case Nuevo Vacío</b><div class=sub>Para exhibir cartas de valor.</div></td><td class=n>$3.000</td><td class=n>$2.400</td><td class=n>$2.250</td><td class=n>$2.100</td></tr><tr><td><b>Acrílico Magnético - Magnetic Holder 35pt</b><div class=sub>Protección premium con cierre magnético.</div></td><td class=n>$3.500</td><td class=n>$2.800</td><td class=n>$2.620</td><td class=n>$2.450</td></tr></table>
-<div class="pb"></div>
-<h2>Resto del catálogo con stock</h2>
-<table><tr><th>Producto</th><th class=n>Precio público</th><th class=n>Bronce (20 %)</th><th class=n>Plata (25 %)</th><th class=n>Oro (30 %)</th></tr><tr><td><b>Protectores Penny Sleeves - OverSleeves 69x94 (100 u.)</b></td><td class=n>$2.690</td><td class=n>$2.150</td><td class=n>$2.020</td><td class=n>$1.880</td></tr><tr><td><b>Protectores para Cartas Regular Fit 65x90 mm</b></td><td class=n>$2.690</td><td class=n>$2.150</td><td class=n>$2.020</td><td class=n>$1.880</td></tr><tr><td><b>Mini Snap - Protector acrílico a presión</b></td><td class=n>$1.200</td><td class=n>$960</td><td class=n>$900</td><td class=n>$840</td></tr><tr><td><b>Base Negra Holder</b><div class=sub>Negro</div></td><td class=n>$1.290</td><td class=n>$1.030</td><td class=n>$970</td><td class=n>$900</td></tr><tr><td><b>Base Tipo A Transparente Acrílica</b></td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td><b>Separadores de Cartas x7</b><div class=sub>Celeste (Negro agotado)</div></td><td class=n>$1.990</td><td class=n>$1.590</td><td class=n>$1.490</td><td class=n>$1.390</td></tr><tr><td><b>20 Hojas para Cartas de Entrada Lateral</b></td><td class=n>$6.500</td><td class=n>$5.200</td><td class=n>$4.880</td><td class=n>$4.550</td></tr><tr><td><b>Porta Playmate simple Transparente</b></td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td><b>Pack 12 Dados D4–D20 Color Random</b></td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td><b>Bolsa 100 dados Random</b></td><td class=n>$34.990</td><td class=n>$27.990</td><td class=n>$26.240</td><td class=n>$24.490</td></tr><tr><td><b>Dispensador de Fundas y Toploaders</b><div class=sub>Negro, Blanco, Gris</div></td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td><b>Kit inicio TCG</b></td><td class=n>$29.990</td><td class=n>$23.990</td><td class=n>$22.490</td><td class=n>$20.990</td></tr><tr><td><b>Caja Acrílica ETB Pokémon</b></td><td class=n>$29.990</td><td class=n>$23.990</td><td class=n>$22.490</td><td class=n>$20.990</td></tr></table>
-<p class=foot>Over Power Armor · overpowerarmor.cl · irsolucioneschile@gmail.com · Maipú, Santiago. Precios vigentes al 29-10-2026, sujetos a stock.</p>
+
+<section class="page cover">
+ <div class="top">
+  <div class="kicker">Catálogo mayorista · Octubre 2026</div>
+  <h1>Over Power<br>Armor <span>para tiendas</span></h1>
+  <p class="lead">Accesorios para cartas coleccionables con stock en Chile. Tu tienda compra con descuento, vende a nuestro precio público sugerido y se queda con el margen.</p>
+ </div>
+ <div class="tiers"><div class="tier"><span>Bronce</span><b>20<i>%</i></b><small>de margen para tu tienda</small><em>Pedido desde $60.000</em></div><div class="tier"><span>Plata</span><b>25<i>%</i></b><small>de margen para tu tienda</small><em>Pedido desde $150.000</em></div><div class="tier"><span>Oro</span><b>30<i>%</i></b><small>de margen para tu tienda</small><em>Pedido desde $300.000</em></div></div>
+ <div class="pasos">
+  <div class="paso"><b>1. Elige tu nivel</b>El monto mínimo se mide a precio público. Puedes combinar todos los productos.</div>
+  <div class="paso"><b>2. Haz el pedido</b>En overpowerarmor.cl con tu cuenta de empresa y el código de tu nivel, o por transferencia.</div>
+  <div class="paso"><b>3. Recibe en tu local</b>Despacho desde Maipú a todo Chile, o retiro coordinado en Santiago.</div>
+ </div>
+ <div class="pie"><span><b>overpowerarmor.cl</b> · Maipú, Santiago</span><span>Precios en CLP con IVA · vigentes al 29-10-2026</span></div>
+</section>
+
+<section class="page">
+ <h2>Productos estrella</h2>
+ <p class="bajada">Lo que más se vende en tiendas con torneos. Precio por unidad de venta en cada nivel.</p>
+ <div class="grid"><article class="card"><div class="foto vacia"><span>Protectores</span></div>
+<div class="info"><h3>Penny Sleeves Fit</h3><p class="ficha">65 × 90 mm · 100 unidades</p><p class="arg">El protector que más rota en mesón: Pokémon, Magic y One Piece.</p><div class="precios"><div class="pvp"><small>Público</small><b>$2.690</b></div><div><small>Bronce</small><b>$2.150</b></div><div><small>Plata</small><b>$2.020</b></div><div><small>Oro</small><b>$1.880</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Protectores</span></div>
+<div class="info"><h3>Penny Sleeves Perfect Fit</h3><p class="ficha">64 × 89 mm · 100 unidades</p><p class="arg">Ajuste interior para doble enfundado de torneo.</p><div class="precios"><div class="pvp"><small>Público</small><b>$2.690</b></div><div><small>Bronce</small><b>$2.150</b></div><div><small>Plata</small><b>$2.020</b></div><div><small>Oro</small><b>$1.880</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Protectores</span></div>
+<div class="info"><h3>Over Sleeve Rugoso</h3><p class="ficha">69 × 94 mm · exterior mate</p><p class="arg">Barajan mejor y aguantan semanas de torneo.</p><div class="precios"><div class="pvp"><small>Público</small><b>$4.490</b></div><div><small>Bronce</small><b>$3.590</b></div><div><small>Plata</small><b>$3.370</b></div><div><small>Oro</small><b>$3.140</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Almacenamiento</span></div>
+<div class="info"><h3>Toploaders 35PT</h3><p class="ficha">25 unidades · libre de ácido y PVC</p><p class="arg">Protección rígida para cartas de valor y envíos.</p><div class="precios"><div class="pvp"><small>Público</small><b>$7.990</b></div><div><small>Bronce</small><b>$6.390</b></div><div><small>Plata</small><b>$5.990</b></div><div><small>Oro</small><b>$5.590</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Playmate</span></div>
+<div class="info"><h3>Playmate Ecocuero</h3><p class="ficha">Negro, púrpura o rojo · base antideslizante</p><p class="arg">Impermeable: sobrevive bebidas y torneos largos.</p><div class="precios"><div class="pvp"><small>Público</small><b>$4.990</b></div><div><small>Bronce</small><b>$3.990</b></div><div><small>Plata</small><b>$3.740</b></div><div><small>Oro</small><b>$3.490</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Almacenamiento</span></div>
+<div class="info"><h3>Deck Box 80+</h3><p class="ficha">80 cartas enfundadas · negro o azul</p><p class="arg">Precio de impulso para la caja registradora.</p><div class="precios"><div class="pvp"><small>Público</small><b>$1.990</b></div><div><small>Bronce</small><b>$1.590</b></div><div><small>Plata</small><b>$1.490</b></div><div><small>Oro</small><b>$1.390</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Protectores</span></div>
+<div class="info"><h3>Acrílico Magnético</h3><p class="ficha">35pt · cierre magnético</p><p class="arg">Exhibición premium para cartas de colección.</p><div class="precios"><div class="pvp"><small>Público</small><b>$3.500</b></div><div><small>Bronce</small><b>$2.800</b></div><div><small>Plata</small><b>$2.620</b></div><div><small>Oro</small><b>$2.450</b></div></div></div></article><article class="card"><div class="foto vacia"><span>Protectores</span></div>
+<div class="info"><h3>Grading Case</h3><p class="ficha">Carcasa vacía tipo graduación</p><p class="arg">Para que el cliente arme su propia vitrina.</p><div class="precios"><div class="pvp"><small>Público</small><b>$3.000</b></div><div><small>Bronce</small><b>$2.400</b></div><div><small>Plata</small><b>$2.250</b></div><div><small>Oro</small><b>$2.100</b></div></div></div></article></div>
+ <div class="folio"><span>Over Power Armor · Catálogo mayorista</span><span>2</span></div>
+</section>
+
+<section class="page">
+ <h2>Resto del catálogo</h2>
+ <p class="bajada">Productos disponibles para tiendas. Los packs y kits son exclusivos de nuestra tienda web.</p>
+ <table><tr><th></th><th>Producto</th><th class=n>Stock</th><th class=n>Público</th><th class=n>Bronce</th><th class=n>Plata</th><th class=n>Oro</th></tr><tr><td class=mini><div class="thumb vacia"><span>Protectores</span></div></td><td><b>Protectores Penny Sleeves - OverSleeves 69x94 (100 u.)</b></td><td class=n>50 u.</td><td class=n>$2.690</td><td class=n>$2.150</td><td class=n>$2.020</td><td class=n>$1.880</td></tr><tr><td class=mini><div class="thumb vacia"><span>Protectores</span></div></td><td><b>Protectores para Cartas Regular Fit 65x90 mm</b></td><td class=n>30 u.</td><td class=n>$2.690</td><td class=n>$2.150</td><td class=n>$2.020</td><td class=n>$1.880</td></tr><tr><td class=mini><div class="thumb vacia"><span>Protectores</span></div></td><td><b>Mini Snap - Protector acrílico a presión</b></td><td class=n>80 u.</td><td class=n>$1.200</td><td class=n>$960</td><td class=n>$900</td><td class=n>$840</td></tr><tr><td class=mini><div class="thumb vacia"><span>Protectores</span></div></td><td><b>Base Negra Holder</b><div class=sub>Negro</div></td><td class=n>100 u.</td><td class=n>$1.290</td><td class=n>$1.030</td><td class=n>$970</td><td class=n>$900</td></tr><tr><td class=mini><div class="thumb vacia"><span>Protectores</span></div></td><td><b>Base Tipo A Transparente Acrílica</b></td><td class=n>20 u.</td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td class=mini><div class="thumb vacia"><span>Separadores</span></div></td><td><b>Separadores de Cartas x7</b><div class=sub>Celeste (Negro agotado)</div></td><td class=n>18 u.</td><td class=n>$1.990</td><td class=n>$1.590</td><td class=n>$1.490</td><td class=n>$1.390</td></tr><tr><td class=mini><div class="thumb vacia"><span>Archivadores</span></div></td><td><b>20 Hojas para Cartas de Entrada Lateral</b></td><td class=n>100 u.</td><td class=n>$6.500</td><td class=n>$5.200</td><td class=n>$4.880</td><td class=n>$4.550</td></tr><tr><td class=mini><div class="thumb vacia"><span>Porta Playmate</span></div></td><td><b>Porta Playmate simple Transparente</b></td><td class=n>50 u.</td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td class=mini><div class="thumb vacia"><span>Almacenamiento</span></div></td><td><b>Dispensador de Fundas y Toploaders</b><div class=sub>Negro, Blanco, Gris</div></td><td class=n>9 u.</td><td class=n>$4.990</td><td class=n>$3.990</td><td class=n>$3.740</td><td class=n>$3.490</td></tr><tr><td class=mini><div class="thumb vacia"><span>Accesorios Pokémon TCG</span></div></td><td><b>Caja Acrílica ETB Pokémon</b></td><td class=n>4 u.</td><td class=n>$29.990</td><td class=n>$23.990</td><td class=n>$22.490</td><td class=n>$20.990</td></tr><tr><td class=mini><div class="thumb vacia"><span>Almacenamiento</span></div></td><td><b>Caja de Almacenamiento Armable 3200+ (preventa)</b></td><td class=n>Preventa</td><td class=n>$9.900</td><td class=n>$7.920</td><td class=n>$7.420</td><td class=n>$6.930</td></tr><tr><td class=mini><div class="thumb vacia"><span>Archivadores</span></div></td><td><b>Carpeta Almacenamiento 360 Espacios con Elástico (preventa)</b><div class=sub>Azul, Morado, Negro</div></td><td class=n>Preventa</td><td class=n>$8.990</td><td class=n>$7.190</td><td class=n>$6.740</td><td class=n>$6.290</td></tr></table>
+ <div class="notas">
+  <div><b>Cómo se calcula tu margen</b>Precio tienda = precio público × (1 − margen del nivel). Ejemplo: Penny Sleeves Fit a $2.690 público queda en $1.880 en nivel Oro; ganas $810 por pack.</div>
+  <div><b>Contacto</b>overpowerarmor.cl · irsolucioneschile@gmail.com<br>Stock sujeto a disponibilidad; las preventas se despachan al llegar.</div>
+ </div>
+ <div class="folio"><span>Over Power Armor · Catálogo mayorista</span><span>3</span></div>
+</section>
 </html>

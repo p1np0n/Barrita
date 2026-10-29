@@ -4,11 +4,13 @@ Material para vender los accesorios TCG de OPA a tiendas de Chile.
 
 | Archivo | Qué es |
 |---|---|
-| `tiendas.json` | 56 tiendas TCG en Chile (18 prioridad A, 24 B, 14 C) con dirección, juegos, canal sugerido y nivel de validación. |
+| `tiendas.json` | 291 tiendas en Chile (TCG, juegos de mesa, cómics, anime y hobbies) con dirección, juegos, tipo, canal sugerido, validación y correo cuando se encontró (31). |
+| `fuentes/` | Lotes de tiendas encontradas (`lote2.tsv`), correos con su fuente (`emails.json`) y el script que los fusiona sin duplicar (`fusionar.py`). |
+| `presentacion/` | Catálogo mayorista en PDF (`Catalogo_Mayorista_OPA.pdf`) y los emails de presentación personalizados, aún sin enviar (`emails_pendientes.json`). |
 | `productos_shopify.json` | Foto de los productos activos de overpowerarmor.cl al 29-10-2026 (PVP, costo, stock, peso en kg). |
 | `generar_catalogo.py` | Genera `catalogo_mayorista.csv` con los precios para tiendas en 3 niveles. |
 | `catalogo_mayorista.csv` | Catálogo listo para abrir en Excel (separador `;`). |
-| `dashboard.html` | Fuente del dashboard publicado (embudo, catálogo, cotizador y mensajes). |
+| `dashboard.html` | Fuente del dashboard publicado. Lee `tiendas.json` publicado junto a la página y guarda el estado de cada contacto en su base de datos. |
 
 ## Niveles mayoristas
 
@@ -33,3 +35,13 @@ Los códigos solo funcionan para clientes del segmento «Clientes añadidos a em
 ```bash
 python3 mayoristas/generar_catalogo.py
 ```
+
+## Regenerar la presentación
+
+```bash
+python3 mayoristas/presentacion/generar_catalogo_html.py
+node mayoristas/presentacion/a_pdf.js
+python3 mayoristas/presentacion/generar_emails.py
+```
+
+`generar_emails.py` solo arma los textos: no envía correos.

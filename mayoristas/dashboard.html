@@ -82,6 +82,7 @@ td input.nota{width:100%;min-width:160px}
 .steps{display:grid;gap:8px;margin:0;padding-left:22px}
 .addform{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px}
 .status{font-size:13px;color:var(--muted)}
+.mail{font-family:var(--mono);font-size:12px;color:var(--ink);user-select:all;word-break:break-all}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 
@@ -90,11 +91,12 @@ td input.nota{width:100%;min-width:160px}
     <div>
       <h1>Over Power Armor <span>· Mayoristas</span></h1>
     </div>
-    <p class="lede">Tiendas TCG de Chile para vender tus accesorios al por mayor, con precios que le dejan a la tienda entre 20 % y 30 % de margen. Marca el avance de cada contacto en la tabla; se guarda para todos los que abran esta página.</p>
+    <p class="lede">291 tiendas de Chile (TCG, juegos de mesa, cómics y hobbies) para vender tus accesorios al por mayor, con precios que le dejan a la tienda entre 20 % y 30 % de margen. Marca el avance de cada contacto en la tabla; se guarda para todos los que abran esta página.</p>
     <div class="kpis" id="kpis">
       <div class="kpi"><small>Tiendas en la lista</small><b id="k-total">–</b></div>
       <div class="kpi"><small>Validadas</small><b id="k-valid">–</b></div>
       <div class="kpi"><small>Prioridad A</small><b id="k-a">–</b></div>
+      <div class="kpi"><small>Con correo</small><b id="k-mail">–</b></div>
       <div class="kpi"><small>Clientes</small><b id="k-cli">–</b></div>
       <div class="kpi"><small>Stock a precio Oro</small><b id="k-stock">–</b></div>
     </div>
@@ -110,16 +112,18 @@ td input.nota{width:100%;min-width:160px}
 
 <section>
   <div class="sec-head"><h2>Tiendas</h2></div>
-  <p class="note"><b>Validación:</b> «Sitio web activo» = su web propia aparece indexada hoy; «Directorio TorneosTCG» = ficha con calendario de torneos en torneostcg.cl; «Por confirmar» = solo aparece en listas de distribuidores, puede estar cerrada. <b>Prioridad:</b> A = cerca de Maipú o con torneos semanales (alto consumo de fundas), B = resto de Santiago y ciudades grandes, C = regiones con envío.</p>
+  <p class="note"><b>Validación:</b> «Sitio web activo» = su web propia aparece indexada hoy; «Directorio TorneosTCG», «Expositor TCG CON / Trading Fest 2026», «Lista oficial Bandai / Digimon / Gundam» y «Localizador Wizards» = aparece en esa fuente con su ficha; «Por confirmar» = solo aparece en listas antiguas o de terceros, puede estar cerrada. <b>Prioridad:</b> A = cerca de Maipú o con torneos semanales (alto consumo de fundas), B = resto de Santiago y ciudades grandes, C = regiones con envío.</p>
   <div class="filters">
     <input type="search" id="f-q" placeholder="Buscar tienda, comuna o juego" aria-label="Buscar">
     <select id="f-prio" aria-label="Prioridad"><option value="">Toda prioridad</option><option>A</option><option>B</option><option>C</option></select>
     <select id="f-reg" aria-label="Región"><option value="">Todas las regiones</option></select>
     <select id="f-est" aria-label="Estado"><option value="">Todos los estados</option></select>
-    <select id="f-val" aria-label="Validación"><option value="">Toda validación</option><option>Sitio web activo</option><option>Directorio TorneosTCG</option><option>Por confirmar</option></select>
+    <select id="f-val" aria-label="Validación"><option value="">Toda validación</option></select>
+    <select id="f-tipo" aria-label="Tipo de tienda"><option value="">Todo tipo</option></select>
+    <label class="sub" style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="f-mail"> Solo con correo</label>
   </div>
   <div class="tbl"><table>
-    <thead><tr><th>Tienda</th><th>Juegos</th><th>Prioridad</th><th>Validación</th><th>Canal</th><th>Estado</th><th>Nota</th></tr></thead>
+    <thead><tr><th>Tienda</th><th>Juegos</th><th>Prioridad</th><th>Validación</th><th>Canal y correo</th><th>Estado</th><th>Nota</th></tr></thead>
     <tbody id="t-body"><tr><td colspan="7" class="empty">Cargando tiendas… Si no aparecen, la lista se carga desde la base de datos de esta página.</td></tr></tbody>
   </table></div>
   <details>
@@ -281,11 +285,12 @@ function renderGuiones(){
 }
 
 /* ---------- Tiendas / embudo ---------- */
-function vClass(v){ return v === "Sitio web activo" ? "v-web" : v === "Directorio TorneosTCG" ? "v-dir" : "v-conf"; }
+function vClass(v){ return v === "Sitio web activo" ? "v-web" : v === "Por confirmar" ? "v-conf" : "v-dir"; }
 function renderKpis(){
   document.getElementById("k-total").textContent = tiendas.length || "–";
   document.getElementById("k-valid").textContent = tiendas.length ? tiendas.filter(t => t.validacion !== "Por confirmar").length : "–";
   document.getElementById("k-a").textContent = tiendas.length ? tiendas.filter(t => t.prioridad === "A").length : "–";
+  document.getElementById("k-mail").textContent = tiendas.length ? tiendas.filter(t => t.email).length : "–";
   document.getElementById("k-cli").textContent = tiendas.filter(t => t.estado === "Cliente").length;
   const oro = PRODUCTOS.reduce((s,p) => s + p.stock * r10(p.pvp*0.7), 0);
   document.getElementById("k-stock").textContent = clp(oro);
@@ -302,14 +307,21 @@ function fillFilters(){
   const regiones = [...new Set(tiendas.map(t => t.region).filter(Boolean))].sort();
   reg.innerHTML = '<option value="">Todas las regiones</option>' + regiones.map(r => `<option>${esc(r)}</option>`).join("");
   reg.value = cur;
+  for (const [id, campo, todos] of [["f-val","validacion","Toda validación"],["f-tipo","tipo","Todo tipo"]]) {
+    const sel = document.getElementById(id), actual = sel.value;
+    const vals = [...new Set(tiendas.map(t => t[campo]).filter(Boolean))].sort();
+    sel.innerHTML = `<option value="">${todos}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join("");
+    sel.value = actual;
+  }
   const est = document.getElementById("f-est");
   if (est.options.length === 1) est.innerHTML += ESTADOS.map(e => `<option>${e}</option>`).join("");
 }
 function renderTabla(){
   const q = document.getElementById("f-q").value.toLowerCase().trim();
   const fp = document.getElementById("f-prio").value, fr = document.getElementById("f-reg").value, fe = document.getElementById("f-est").value, fv = document.getElementById("f-val").value;
+  const ft = document.getElementById("f-tipo").value, fm = document.getElementById("f-mail").checked;
   const orden = {A:0,B:1,C:2};
-  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv)
+  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv) && (!ft || t.tipo===ft) && (!fm || t.email)
       && (!q || [t.nombre,t.comuna,t.juegos,t.region].join(" ").toLowerCase().includes(q)))
     .sort((a,b) => (orden[a.prioridad]-orden[b.prioridad]) || a.nombre.localeCompare(b.nombre));
   const body = document.getElementById("t-body");
@@ -324,7 +336,7 @@ function renderTabla(){
       <td>${esc(t.juegos)}${t.eventos?'<div class="sub">Con torneos</div>':''}</td>
       <td><span class="pill p-${esc(t.prioridad)}">${esc(t.prioridad)}</span></td>
       <td><span class="pill ${vClass(t.validacion)}">${esc(t.validacion)}</span></td>
-      <td class="sub">${esc(t.canal)}</td>
+      <td class="sub">${esc(t.canal)}${t.email?'<div class="mail">'+esc(t.email)+'</div>':''}${t.tipo&&t.tipo!=="TCG"?'<div>'+esc(t.tipo)+'</div>':''}</td>
       <td><select id="e-${esc(t.id)}" class="st-${est.replace(/ /g,'')}" data-id="${esc(t.id)}" ${canWrite?"":"disabled"} aria-label="Estado de ${esc(t.nombre)}">${ESTADOS.map(e=>`<option ${e===est?"selected":""}>${e}</option>`).join("")}</select></td>
       <td><input class="nota" type="text" id="nt-${esc(t.id)}" data-id="${esc(t.id)}" value="${esc(t.nota)}" placeholder="Contacto, fecha, pedido…" ${canWrite?"":"disabled"}></td></tr>`;
   }).join("");
@@ -332,11 +344,14 @@ function renderTabla(){
   body.querySelectorAll("input.nota").forEach(i => i.onchange = () => guardar(i.dataset.id, {nota: i.value}));
 }
 function renderTodo(){ renderKpis(); renderFunnel(); fillFilters(); renderTabla(); }
-["f-q","f-prio","f-reg","f-est","f-val"].forEach(id => document.getElementById(id).addEventListener("input", renderTabla));
+["f-q","f-prio","f-reg","f-est","f-val","f-tipo","f-mail"].forEach(id => document.getElementById(id).addEventListener("input", renderTabla));
 
 async function guardar(id, cambios){
   if (!db) return;
-  try { await db.collection("tiendas").doc(id).update({...cambios, actualizado: new Date().toISOString()}); statusEl.textContent = "Guardado"; }
+  const t = tiendas.find(x => x.id === id) || {id};
+  // Las tiendas de la lista base solo guardan su estado; las agregadas a mano guardan todos sus datos.
+  const doc = baseIds.has(id) ? {id, estado: t.estado || "Por contactar", nota: t.nota || "", ...cambios} : {...t, ...cambios};
+  try { await db.collection("tiendas").doc(id).set({...doc, actualizado: new Date().toISOString()}); statusEl.textContent = "Guardado"; }
   catch(e){ statusEl.textContent = e.code === "invalid_argument" ? "No tienes permiso para editar esta lista." : "No se pudo guardar. Intenta de nuevo."; if (e.code === "invalid_argument") { canWrite = false; renderTabla(); } }
 }
 document.getElementById("addform").addEventListener("submit", async ev => {
@@ -360,11 +375,23 @@ document.getElementById("addform").addEventListener("submit", async ev => {
   const can = user ? await user.can("data.write") : null;
   canWrite = can !== false;
   db.collection("tiendas").onSnapshot(snap => {
-    tiendas = snap.docs.map(d => d.data());
+    estadoDb = Object.fromEntries(snap.docs.map(d => [d.id, d.data()]));
     statusEl.textContent = canWrite ? "Cambios guardados para todos" : "Solo lectura";
-    renderTodo();
+    mezclar();
   }, () => { statusEl.textContent = "Se perdió la conexión con la base de datos. Recarga la página."; });
 })();
+
+let base = [], baseIds = new Set(), estadoDb = {};
+function mezclar(){
+  tiendas = base.map(t => {
+    const s = estadoDb[t.id];
+    return s ? {...t, estado: s.estado || "Por contactar", nota: s.nota || "", actualizado: s.actualizado} : t;
+  }).concat(Object.values(estadoDb).filter(d => !baseIds.has(d.id) && d.nombre));
+  renderTodo();
+}
+fetch("tiendas.json").then(r => r.json()).then(lista => {
+  base = lista; baseIds = new Set(lista.map(t => t.id)); mezclar();
+}).catch(() => { statusEl.textContent = "No se pudo cargar la lista de tiendas. Recarga la página."; });
 
 renderTiers(); renderCatalogo(); renderCotizador(); renderGuiones(); renderTodo();
 </script>

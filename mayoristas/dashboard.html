@@ -91,12 +91,13 @@ td input.nota{width:100%;min-width:160px}
     <div>
       <h1>Over Power Armor <span>· Mayoristas</span></h1>
     </div>
-    <p class="lede">291 tiendas de Chile (TCG, juegos de mesa, cómics y hobbies) para vender tus accesorios al por mayor, con precios que le dejan a la tienda entre 20 % y 30 % de margen. Marca el avance de cada contacto en la tabla; se guarda para todos los que abran esta página.</p>
+    <p class="lede">299 tiendas de Chile (TCG, juegos de mesa, cómics y hobbies) para vender tus accesorios al por mayor, con precios que le dejan a la tienda entre 20 % y 30 % de margen. Marca el avance de cada contacto en la tabla; se guarda para todos los que abran esta página.</p>
     <div class="kpis" id="kpis">
       <div class="kpi"><small>Tiendas en la lista</small><b id="k-total">–</b></div>
       <div class="kpi"><small>Validadas</small><b id="k-valid">–</b></div>
       <div class="kpi"><small>Prioridad A</small><b id="k-a">–</b></div>
       <div class="kpi"><small>Con correo</small><b id="k-mail">–</b></div>
+      <div class="kpi"><small>Con IG o WhatsApp</small><b id="k-soc">–</b></div>
       <div class="kpi"><small>Clientes</small><b id="k-cli">–</b></div>
       <div class="kpi"><small>Stock a precio Oro</small><b id="k-stock">–</b></div>
     </div>
@@ -120,10 +121,10 @@ td input.nota{width:100%;min-width:160px}
     <select id="f-est" aria-label="Estado"><option value="">Todos los estados</option></select>
     <select id="f-val" aria-label="Validación"><option value="">Toda validación</option></select>
     <select id="f-tipo" aria-label="Tipo de tienda"><option value="">Todo tipo</option></select>
-    <label class="sub" style="display:flex;align-items:center;gap:6px"><input type="checkbox" id="f-mail"> Solo con correo</label>
+    <select id="f-mail" aria-label="Contacto"><option value="">Todo contacto</option><option value="email">Con correo</option><option value="social">Con Instagram o WhatsApp</option><option value="ninguno">Sin contacto</option></select>
   </div>
   <div class="tbl"><table>
-    <thead><tr><th>Tienda</th><th>Juegos</th><th>Prioridad</th><th>Validación</th><th>Canal y correo</th><th>Estado</th><th>Nota</th></tr></thead>
+    <thead><tr><th>Tienda</th><th>Juegos</th><th>Prioridad</th><th>Validación</th><th>Canal y contacto</th><th>Estado</th><th>Nota</th></tr></thead>
     <tbody id="t-body"><tr><td colspan="7" class="empty">Cargando tiendas… Si no aparecen, la lista se carga desde la base de datos de esta página.</td></tr></tbody>
   </table></div>
   <details>
@@ -285,12 +286,21 @@ function renderGuiones(){
 }
 
 /* ---------- Tiendas / embudo ---------- */
+function contacto(t){
+  const partes = [];
+  if (t.email) partes.push('<div class="mail">'+esc(t.email)+'</div>');
+  if (t.instagram) partes.push('<div><a href="https://www.instagram.com/'+encodeURIComponent(t.instagram)+'/" target="_blank" rel="noopener">@'+esc(t.instagram)+'</a></div>');
+  if (t.whatsapp) partes.push('<div>WhatsApp <a href="https://wa.me/'+t.whatsapp.replace(/\D/g,"")+'" target="_blank" rel="noopener" class="mail">'+esc(t.whatsapp)+'</a></div>');
+  if (!partes.length) partes.push('<div><a href="https://www.google.com/search?q='+encodeURIComponent(t.nombre+" "+(t.comuna||"")+" instagram")+'" target="_blank" rel="noopener">Buscar contacto</a></div>');
+  return partes.join("");
+}
 function vClass(v){ return v === "Sitio web activo" ? "v-web" : v === "Por confirmar" ? "v-conf" : "v-dir"; }
 function renderKpis(){
   document.getElementById("k-total").textContent = tiendas.length || "–";
   document.getElementById("k-valid").textContent = tiendas.length ? tiendas.filter(t => t.validacion !== "Por confirmar").length : "–";
   document.getElementById("k-a").textContent = tiendas.length ? tiendas.filter(t => t.prioridad === "A").length : "–";
   document.getElementById("k-mail").textContent = tiendas.length ? tiendas.filter(t => t.email).length : "–";
+  document.getElementById("k-soc").textContent = tiendas.length ? tiendas.filter(t => t.instagram || t.whatsapp).length : "–";
   document.getElementById("k-cli").textContent = tiendas.filter(t => t.estado === "Cliente").length;
   const oro = PRODUCTOS.reduce((s,p) => s + p.stock * r10(p.pvp*0.7), 0);
   document.getElementById("k-stock").textContent = clp(oro);
@@ -319,9 +329,9 @@ function fillFilters(){
 function renderTabla(){
   const q = document.getElementById("f-q").value.toLowerCase().trim();
   const fp = document.getElementById("f-prio").value, fr = document.getElementById("f-reg").value, fe = document.getElementById("f-est").value, fv = document.getElementById("f-val").value;
-  const ft = document.getElementById("f-tipo").value, fm = document.getElementById("f-mail").checked;
+  const ft = document.getElementById("f-tipo").value, fm = document.getElementById("f-mail").value;
   const orden = {A:0,B:1,C:2};
-  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv) && (!ft || t.tipo===ft) && (!fm || t.email)
+  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv) && (!ft || t.tipo===ft) && (!fm || (fm==="email" ? t.email : fm==="social" ? (t.instagram||t.whatsapp) : !(t.email||t.instagram||t.whatsapp)))
       && (!q || [t.nombre,t.comuna,t.juegos,t.region].join(" ").toLowerCase().includes(q)))
     .sort((a,b) => (orden[a.prioridad]-orden[b.prioridad]) || a.nombre.localeCompare(b.nombre));
   const body = document.getElementById("t-body");
@@ -336,7 +346,7 @@ function renderTabla(){
       <td>${esc(t.juegos)}${t.eventos?'<div class="sub">Con torneos</div>':''}</td>
       <td><span class="pill p-${esc(t.prioridad)}">${esc(t.prioridad)}</span></td>
       <td><span class="pill ${vClass(t.validacion)}">${esc(t.validacion)}</span></td>
-      <td class="sub">${esc(t.canal)}${t.email?'<div class="mail">'+esc(t.email)+'</div>':''}${t.tipo&&t.tipo!=="TCG"?'<div>'+esc(t.tipo)+'</div>':''}</td>
+      <td class="sub">${esc(t.canal)}${contacto(t)}${t.tipo&&t.tipo!=="TCG"?'<div>'+esc(t.tipo)+'</div>':''}</td>
       <td><select id="e-${esc(t.id)}" class="st-${est.replace(/ /g,'')}" data-id="${esc(t.id)}" ${canWrite?"":"disabled"} aria-label="Estado de ${esc(t.nombre)}">${ESTADOS.map(e=>`<option ${e===est?"selected":""}>${e}</option>`).join("")}</select></td>
       <td><input class="nota" type="text" id="nt-${esc(t.id)}" data-id="${esc(t.id)}" value="${esc(t.nota)}" placeholder="Contacto, fecha, pedido…" ${canWrite?"":"disabled"}></td></tr>`;
   }).join("");

@@ -4,8 +4,8 @@ Material para vender los accesorios TCG de OPA a tiendas de Chile.
 
 | Archivo | Qué es |
 |---|---|
-| `tiendas.json` | 291 tiendas en Chile (TCG, juegos de mesa, cómics, anime y hobbies) con dirección, juegos, tipo, canal sugerido, validación y correo cuando se encontró (31). |
-| `fuentes/` | Lotes de tiendas encontradas (`lote2.tsv`), correos con su fuente (`emails.json`) y el script que los fusiona sin duplicar (`fusionar.py`). |
+| `tiendas.json` | 299 tiendas en Chile (TCG, juegos de mesa, cómics, anime y hobbies) con dirección, juegos, tipo, canal sugerido, validación y contacto cuando se encontró: correo (31), Instagram (45) y WhatsApp (17). |
+| `fuentes/` | Lotes de tiendas encontradas (`lote2.tsv`), correos e Instagram/WhatsApp con su fuente (`emails.json`, `contactos.json`) y el script que los fusiona sin duplicar (`fusionar.py`). |
 | `presentacion/` | Catálogo mayorista en PDF (`Catalogo_Mayorista_OPA.pdf`) y los emails de presentación personalizados, aún sin enviar (`emails_pendientes.json`). |
 | `productos_shopify.json` | Foto de los productos activos de overpowerarmor.cl al 29-10-2026 (PVP, costo, stock, peso en kg). |
 | `generar_catalogo.py` | Genera `catalogo_mayorista.csv` con los precios para tiendas en 3 niveles. |

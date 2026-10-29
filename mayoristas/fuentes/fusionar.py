@@ -6,7 +6,7 @@ AQUI = Path(__file__).resolve().parent.parent
 CERCA = {"Maipú", "Cerrillos", "Pudahuel", "Estación Central", "Lo Prado", "Padre Hurtado"}
 CENTRO = {"Santiago Centro", "Providencia"}
 BUENAS = {"Sitio web activo", "Directorio TorneosTCG", "Expositor TCG CON 2026", "Expositor Trading Fest 2026",
-          "Lista oficial Bandai", "Lista oficial Digimon", "Lista oficial Gundam", "Comparador Card Pulse", "Localizador Wizards"}
+          "Lista oficial Bandai", "Lista oficial Digimon", "Lista oficial Gundam", "Comparador Card Pulse", "Localizador Wizards", "Instagram activo"}
 
 
 def slug(s):

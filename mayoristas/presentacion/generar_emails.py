@@ -1,6 +1,7 @@
 """Arma el email de presentación para cada tienda con correo en tiendas.json.
 
 Salida: emails_pendientes.json (destinatario, asunto, cuerpo HTML y texto).
+Cada email se envía con presentacion/Catalogo_Mayorista_OPA.pdf adjunto.
 No envía nada: los correos se crean como borradores solo cuando el dueño lo aprueba.
 """
 import json
@@ -57,7 +58,7 @@ def cuerpo_html(tienda):
 </ul>
 <p><b>Nuestros productos estrella</b> (precios con IVA):</p>
 {tabla_html()}
-<p>También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador, porta playmates y dados. Si les interesa, les envío el catálogo completo en PDF o paso a dejarles muestras.</p>
+<p>También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador, porta playmates y dados. Les adjunto el catálogo completo en PDF con los precios de los tres niveles. Si prefieren, paso a dejarles muestras.</p>
 <p>¿Les acomoda que conversemos esta semana?</p>
 <p>Saludos,<br>Iván<br>Over Power Armor · overpowerarmor.cl</p>
 </div>"""
@@ -76,7 +77,7 @@ Estamos abriendo venta mayorista para tiendas TCG, con precios que les dejan ent
 Nuestros productos estrella (precios con IVA):
 {tabla_texto()}
 
-También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador, porta playmates y dados. Si les interesa, les envío el catálogo completo en PDF o paso a dejarles muestras.
+También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador, porta playmates y dados. Les adjunto el catálogo completo en PDF con los precios de los tres niveles. Si prefieren, paso a dejarles muestras.
 
 ¿Les acomoda que conversemos esta semana?
 

@@ -1,7 +1,7 @@
 """Arma el email de presentación para cada tienda con correo en tiendas.json.
 
 Salida: emails_pendientes.json (destinatario, asunto, cuerpo HTML y texto).
-Cada email se envía con presentacion/Catalogo_Mayorista_OPA.pdf adjunto.
+Cada email enlaza el catálogo PDF publicado en los archivos de Shopify (CATALOGO_URL).
 No envía nada: los correos se crean como borradores solo cuando el dueño lo aprueba.
 """
 import json
@@ -18,6 +18,7 @@ ESTRELLA = [
     "Deck Box - Porta Mazo 80+",
     "Acrílico Magnético - Magnetic Holder 35pt",
 ]
+CATALOGO_URL = "https://cdn.shopify.com/s/files/1/0938/1213/0164/files/Catalogo_Mayorista_OPA.pdf?v=1793379066"
 ASUNTO = "Accesorios TCG al por mayor para {tienda}: 20 % a 30 % de margen"
 
 
@@ -49,7 +50,7 @@ def tabla_texto():
 def cuerpo_html(tienda):
     return f"""<div style="font-family:Arial,Helvetica,sans-serif;font-size:15px;line-height:1.5;color:#18202b">
 <p>Hola equipo de {tienda}:</p>
-<p>Soy Iván, de <b>Over Power Armor</b> (<a href="https://overpowerarmor.cl">overpowerarmor.cl</a>), marca chilena de accesorios para cartas coleccionables. Despachamos desde Maipú a todo Chile.</p>
+<p>Les escribimos desde <b>Over Power Armor</b> (<a href="https://overpowerarmor.cl">overpowerarmor.cl</a>), marca chilena de accesorios para cartas coleccionables. Despachamos desde Maipú a todo Chile.</p>
 <p>Estamos abriendo venta mayorista para tiendas TCG, con precios que les dejan <b>entre 20 % y 30 % de margen</b> vendiendo a nuestro precio público:</p>
 <ul>
 <li><b>Bronce:</b> 20 % de margen, pedido desde $60.000</li>
@@ -58,16 +59,18 @@ def cuerpo_html(tienda):
 </ul>
 <p><b>Nuestros productos estrella</b> (precios con IVA):</p>
 {tabla_html()}
-<p>También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador, porta playmates y dados. Les adjunto el catálogo completo en PDF con los precios de los tres niveles. Si prefieren, paso a dejarles muestras.</p>
+<p>También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador y porta playmates. El catálogo trae fotos, fichas y los precios de los tres niveles:</p>
+<p><a href="{CATALOGO_URL}" style="display:inline-block;background:#b07a12;color:#ffffff;text-decoration:none;font-weight:bold;padding:10px 18px;border-radius:6px">Ver catálogo mayorista (PDF)</a></p>
+<p>Si prefieren, pasamos a dejarles muestras.</p>
 <p>¿Les acomoda que conversemos esta semana?</p>
-<p>Saludos,<br>Iván<br>Over Power Armor · overpowerarmor.cl</p>
+<p>Saludos,<br>Equipo Over Power Armor<br>overpowerarmor.cl</p>
 </div>"""
 
 
 def cuerpo_texto(tienda):
     return f"""Hola equipo de {tienda}:
 
-Soy Iván, de Over Power Armor (overpowerarmor.cl), marca chilena de accesorios para cartas coleccionables. Despachamos desde Maipú a todo Chile.
+Les escribimos desde Over Power Armor (overpowerarmor.cl), marca chilena de accesorios para cartas coleccionables. Despachamos desde Maipú a todo Chile.
 
 Estamos abriendo venta mayorista para tiendas TCG, con precios que les dejan entre 20 % y 30 % de margen vendiendo a nuestro precio público:
 - Bronce: 20 % de margen, pedido desde $60.000
@@ -77,13 +80,16 @@ Estamos abriendo venta mayorista para tiendas TCG, con precios que les dejan ent
 Nuestros productos estrella (precios con IVA):
 {tabla_texto()}
 
-También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador, porta playmates y dados. Les adjunto el catálogo completo en PDF con los precios de los tres niveles. Si prefieren, paso a dejarles muestras.
+También tenemos penny sleeves 64x89 y 69x94, grading cases, bases acrílicas, hojas para archivador y porta playmates. Catálogo mayorista con fotos y precios de los tres niveles:
+{CATALOGO_URL}
+
+Si prefieren, pasamos a dejarles muestras.
 
 ¿Les acomoda que conversemos esta semana?
 
 Saludos,
-Iván
-Over Power Armor · overpowerarmor.cl"""
+Equipo Over Power Armor
+overpowerarmor.cl"""
 
 
 def main():

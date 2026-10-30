@@ -96,7 +96,7 @@ def main():
     vistos, salida = set(), []
     for t in TIENDAS:
         # Las tiendas marcadas como competencia no reciben la oferta mayorista.
-        if not t.get("email") or t["email"] in vistos or t.get("competencia"):
+        if not t.get("email") or t["email"] in vistos or t.get("competencia") or t.get("excluir_correo"):
             continue
         vistos.add(t["email"])
         nombre = t["nombre"].replace("Magicsur Los Dominicos", "Magicsur")

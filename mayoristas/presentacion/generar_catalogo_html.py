@@ -4,8 +4,11 @@ Las fotos salen de presentacion/img/ (ver descargar_imagenes.py). Los packs
 marcados como exclusivo_web en productos_shopify.json no se incluyen.
 """
 import base64
+import io
 import json
 from pathlib import Path
+
+from PIL import Image
 
 from descargar_imagenes import archivo
 
@@ -44,11 +47,20 @@ def r10(n):
     return int(round(n / 10) * 10)
 
 
+def jpeg_liviano(ruta, lado=520):
+    """Reduce la foto y la pasa a JPEG sobre el gris del recuadro, para que el PDF pese poco."""
+    img = Image.open(ruta)
+    img.thumbnail((lado, lado))
+    fondo = Image.new("RGB", img.size, (244, 245, 247))
+    fondo.paste(img, mask=img.convert("RGBA").split()[-1])
+    buf = io.BytesIO()
+    fondo.save(buf, "JPEG", quality=78, optimize=True)
+    return base64.b64encode(buf.getvalue()).decode()
+
+
 def foto(p, clase):
     for f in sorted((AQUI / "img").glob(archivo(p["producto"]) + ".*")):
-        mime = "image/png" if f.suffix == ".png" else "image/jpeg"
-        data = base64.b64encode(f.read_bytes()).decode()
-        return f'<div class="{clase}"><img src="data:{mime};base64,{data}" alt=""></div>'
+        return f'<div class="{clase}"><img src="data:image/jpeg;base64,{jpeg_liviano(f)}" alt=""></div>'
     return f'<div class="{clase} vacia"><span>{p["tipo"]}</span></div>'
 
 

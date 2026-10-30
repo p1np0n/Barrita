@@ -17,7 +17,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "midland-store",
@@ -37,7 +38,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "kreature-factory",
@@ -57,7 +59,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "hydra-store",
@@ -77,7 +80,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "exodia-house",
@@ -97,7 +101,8 @@
   "fuente_email": "",
   "instagram": "exodiahouse",
   "whatsapp": "",
-  "fuente_contacto": "https://www.facebook.com/ExodiaHouse/"
+  "fuente_contacto": "https://www.facebook.com/ExodiaHouse/",
+  "competencia": ""
  },
  {
   "id": "drawn",
@@ -117,7 +122,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "monkeys-business",
@@ -137,7 +143,8 @@
   "fuente_email": "",
   "instagram": "_monkeys_business_",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/_monkeys_business_/"
+  "fuente_contacto": "https://www.instagram.com/_monkeys_business_/",
+  "competencia": ""
  },
  {
   "id": "pug-house",
@@ -157,7 +164,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "geekz-oeste",
@@ -177,7 +185,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "onplay",
@@ -197,7 +206,8 @@
   "fuente_email": "https://legacy.fabtcg.com/en/locator/onplay-games/",
   "instagram": "onplay.games",
   "whatsapp": "+56 9 8401 7233",
-  "fuente_contacto": "https://www.instagram.com/onplay.games/"
+  "fuente_contacto": "https://www.instagram.com/onplay.games/",
+  "competencia": ""
  },
  {
   "id": "playset",
@@ -217,7 +227,8 @@
   "fuente_email": "https://www.facebook.com/playsetcl/",
   "instagram": "playsetcl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/playsetcl/"
+  "fuente_contacto": "https://www.instagram.com/playsetcl/",
+  "competencia": ""
  },
  {
   "id": "bigbox",
@@ -237,7 +248,8 @@
   "fuente_email": "",
   "instagram": "tiendathebigbox",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/tiendathebigbox/"
+  "fuente_contacto": "https://www.instagram.com/tiendathebigbox/",
+  "competencia": ""
  },
  {
   "id": "house-of-card",
@@ -257,7 +269,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "huntercard",
@@ -277,7 +290,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": "Marca propia Hunter Supplies (mini snaps, carpetas). https://www.mercadolibre.cl/tienda/hunter-card-tcg"
  },
  {
   "id": "santiago-games",
@@ -297,7 +311,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "magic4ever",
@@ -317,7 +332,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "filecity",
@@ -337,7 +353,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tcglifestore",
@@ -357,7 +374,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "+56 9 4358 5893",
-  "fuente_contacto": "https://tcglifestore.cl/quienes-somos/"
+  "fuente_contacto": "https://tcglifestore.cl/quienes-somos/",
+  "competencia": ""
  },
  {
   "id": "deckswap",
@@ -377,7 +395,8 @@
   "fuente_email": "https://deckswap.cl/terms-conditions/",
   "instagram": "",
   "whatsapp": "+56 9 3001 9330",
-  "fuente_contacto": "https://deckswap.cl/disney-lorcana/"
+  "fuente_contacto": "https://deckswap.cl/disney-lorcana/",
+  "competencia": ""
  },
  {
   "id": "la-comarca",
@@ -397,7 +416,8 @@
   "fuente_email": "https://www.tiendalacomarca.cl/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tecito",
@@ -417,7 +437,8 @@
   "fuente_email": "",
   "instagram": "tcg_teacoffeeandgames",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/tcg_teacoffeeandgames/"
+  "fuente_contacto": "https://www.instagram.com/tcg_teacoffeeandgames/",
+  "competencia": ""
  },
  {
   "id": "third-impact",
@@ -437,7 +458,8 @@
   "fuente_email": "https://www.thirdimpact.cl/article/privacidad-de-datos",
   "instagram": "thirdimpact.cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/thirdimpact.cl/"
+  "fuente_contacto": "https://www.instagram.com/thirdimpact.cl/",
+  "competencia": ""
  },
  {
   "id": "piedrabruja",
@@ -457,7 +479,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "+56 9 7540 3570",
-  "fuente_contacto": "https://piedrabruja.cl/"
+  "fuente_contacto": "https://piedrabruja.cl/",
+  "competencia": "Vende accesorios TCG al por mayor a otras tiendas. https://piedrabruja.cl/collections/pb2b-tcg-accesorios"
  },
  {
   "id": "magicsur",
@@ -477,7 +500,8 @@
   "fuente_email": "https://www.magicsur.cl/",
   "instagram": "magicsurchile",
   "whatsapp": "+56 2 2222 5288",
-  "fuente_contacto": "https://www.instagram.com/magicsurchile/"
+  "fuente_contacto": "https://www.instagram.com/magicsurchile/",
+  "competencia": ""
  },
  {
   "id": "missplay",
@@ -497,7 +521,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mulligan",
@@ -517,7 +542,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "oasis-games",
@@ -537,7 +563,8 @@
   "fuente_email": "https://www.oasisgames.cl/pages/contactanos",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "chariz-store",
@@ -557,7 +584,8 @@
   "fuente_email": "https://www.charizstore.cl/",
   "instagram": "_charizstore",
   "whatsapp": "",
-  "fuente_contacto": "https://www.tiktok.com/@_charizstore"
+  "fuente_contacto": "https://www.tiktok.com/@_charizstore",
+  "competencia": ""
  },
  {
   "id": "mirax-apumanque",
@@ -577,7 +605,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ruta-12",
@@ -597,7 +626,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "oneup",
@@ -617,7 +647,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "requiem-tcg",
@@ -637,7 +668,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gorila-tcg",
@@ -657,7 +689,8 @@
   "fuente_email": "https://www.gorilatcg.cl/",
   "instagram": "",
   "whatsapp": "+56 9 5341 8541",
-  "fuente_contacto": "https://www.gorilatcg.cl/"
+  "fuente_contacto": "https://www.gorilatcg.cl/",
+  "competencia": ""
  },
  {
   "id": "shogun-tcg",
@@ -677,7 +710,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gaming-place",
@@ -697,7 +731,8 @@
   "fuente_email": "",
   "instagram": "gamingplace_cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/gamingplace_cl/"
+  "fuente_contacto": "https://www.instagram.com/gamingplace_cl/",
+  "competencia": ""
  },
  {
   "id": "elreinodelosduelos",
@@ -717,7 +752,8 @@
   "fuente_email": "",
   "instagram": "elreinodelosduelos.cl",
   "whatsapp": "",
-  "fuente_contacto": "https://linktr.ee/elreinodelosduelos.cl"
+  "fuente_contacto": "https://linktr.ee/elreinodelosduelos.cl",
+  "competencia": ""
  },
  {
   "id": "poke-place",
@@ -737,7 +773,8 @@
   "fuente_email": "",
   "instagram": "pokeplace_cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/pokeplace_cl/"
+  "fuente_contacto": "https://www.instagram.com/pokeplace_cl/",
+  "competencia": ""
  },
  {
   "id": "tcg-family",
@@ -757,7 +794,8 @@
   "fuente_email": "",
   "instagram": "tcgfamily_chile",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/tcgfamily_chile/"
+  "fuente_contacto": "https://www.instagram.com/tcgfamily_chile/",
+  "competencia": ""
  },
  {
   "id": "the-way",
@@ -777,7 +815,8 @@
   "fuente_email": "https://www.theway.cl/",
   "instagram": "",
   "whatsapp": "+56 9 5729 2426",
-  "fuente_contacto": "https://www.theway.cl/"
+  "fuente_contacto": "https://www.theway.cl/",
+  "competencia": ""
  },
  {
   "id": "moss-juegos",
@@ -797,7 +836,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "kanjo-store",
@@ -817,7 +857,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "netdecker",
@@ -837,7 +878,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "todo-freak",
@@ -857,7 +899,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "game-of-magic",
@@ -877,7 +920,8 @@
   "fuente_email": "https://www.gameofmagictienda.cl/",
   "instagram": "gameofmagicsingles.cl",
   "whatsapp": "+56 9 8565 8171",
-  "fuente_contacto": "https://www.instagram.com/gameofmagicsingles.cl/"
+  "fuente_contacto": "https://www.instagram.com/gameofmagicsingles.cl/",
+  "competencia": ""
  },
  {
   "id": "magic-chile",
@@ -897,7 +941,8 @@
   "fuente_email": "https://www.magic-chile.cl/",
   "instagram": "magicchile",
   "whatsapp": "+56 9 9513 2887",
-  "fuente_contacto": "https://www.instagram.com/magicchile/"
+  "fuente_contacto": "https://www.instagram.com/magicchile/",
+  "competencia": ""
  },
  {
   "id": "blue-card",
@@ -917,7 +962,8 @@
   "fuente_email": "https://www.bluecard.cl/",
   "instagram": "bluecard_cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/bluecard_cl/"
+  "fuente_contacto": "https://www.instagram.com/bluecard_cl/",
+  "competencia": ""
  },
  {
   "id": "wakanda-kingdom",
@@ -937,7 +983,8 @@
   "fuente_email": "",
   "instagram": "wakandakingdomcl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.facebook.com/wakandakingdomcl/"
+  "fuente_contacto": "https://www.facebook.com/wakandakingdomcl/",
+  "competencia": ""
  },
  {
   "id": "azkaban",
@@ -957,7 +1004,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "lets-play",
@@ -977,7 +1025,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "flexos-games",
@@ -997,7 +1046,8 @@
   "fuente_email": "https://www.facebook.com/FlexosGames/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "planeta-titan",
@@ -1017,7 +1067,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "rocadragon",
@@ -1037,7 +1088,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ira-del-nahuel",
@@ -1057,7 +1109,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "suna-senso",
@@ -1077,7 +1130,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ineko",
@@ -1097,7 +1151,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mdd-store",
@@ -1117,7 +1172,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "devastation",
@@ -1137,7 +1193,8 @@
   "fuente_email": "",
   "instagram": "devastationstore",
   "whatsapp": "+56 9 2057 9818",
-  "fuente_contacto": "https://www.instagram.com/devastationstore/"
+  "fuente_contacto": "https://www.instagram.com/devastationstore/",
+  "competencia": ""
  },
  {
   "id": "single-planet",
@@ -1157,7 +1214,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "progaming",
@@ -1177,7 +1235,8 @@
   "fuente_email": "https://progaming.cl/contacto/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "wargaming",
@@ -1197,7 +1256,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "zoides",
@@ -1217,7 +1277,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "sidedeck",
@@ -1237,7 +1298,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": "Probablemente la misma empresa que SideDeck.cl, que vende accesorios TCG."
  },
  {
   "id": "demente",
@@ -1257,7 +1319,8 @@
   "fuente_email": "https://www.facebook.com/dementegames.cl/",
   "instagram": "dementegames_cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.tiktok.com/@dementegames_cl"
+  "fuente_contacto": "https://www.tiktok.com/@dementegames_cl",
+  "competencia": ""
  },
  {
   "id": "enroque-juegos-de-mesa",
@@ -1277,7 +1340,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "minimarketcg",
@@ -1297,7 +1361,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "moii-juegos",
@@ -1317,7 +1382,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "la-comarca-san-bernardo",
@@ -1337,7 +1403,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "goldsilver",
@@ -1357,7 +1424,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "movistar-gameclub-norte",
@@ -1377,7 +1445,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "movistar-gameclub-vespucio",
@@ -1397,7 +1466,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mesa-1",
@@ -1417,7 +1487,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pacmania",
@@ -1437,7 +1508,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "card-house-gaming",
@@ -1457,7 +1529,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "hobbie",
@@ -1477,7 +1550,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "minimarket-pily",
@@ -1497,7 +1571,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "stribog",
@@ -1517,7 +1592,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "battleworld",
@@ -1537,7 +1613,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "t-nchi",
@@ -1557,7 +1634,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "casa-mitos-y-leyendas",
@@ -1577,7 +1655,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "collector-center",
@@ -1597,7 +1676,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-arcanista",
@@ -1617,7 +1697,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "monster-hardware",
@@ -1637,7 +1718,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "alfheim",
@@ -1657,7 +1739,8 @@
   "fuente_email": "",
   "instagram": "alfheimtcg",
   "whatsapp": "",
-  "fuente_contacto": "https://en.onepiece-cardgame.com/pdf/in_store_tutorial_la.pdf"
+  "fuente_contacto": "https://en.onepiece-cardgame.com/pdf/in_store_tutorial_la.pdf",
+  "competencia": ""
  },
  {
   "id": "afk",
@@ -1677,7 +1760,8 @@
   "fuente_email": "https://www.afkstore.cl/pages/politica-de-devolucion-terminos-y-condiciones",
   "instagram": "afkstorecl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/afkstorecl/"
+  "fuente_contacto": "https://www.instagram.com/afkstorecl/",
+  "competencia": ""
  },
  {
   "id": "arkham",
@@ -1697,7 +1781,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "chile-manga-tcg",
@@ -1717,7 +1802,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "juegomania",
@@ -1737,7 +1823,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "zero-mulligan",
@@ -1757,7 +1844,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "asiaevolution",
@@ -1777,7 +1865,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "bloodmoon",
@@ -1797,7 +1886,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cateams",
@@ -1817,7 +1907,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "crows",
@@ -1837,7 +1928,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "darklight",
@@ -1857,7 +1949,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "decksaver",
@@ -1877,7 +1970,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "dreephy",
@@ -1897,7 +1991,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "leomax",
@@ -1917,7 +2012,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ferret",
@@ -1937,7 +2033,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "millan",
@@ -1957,7 +2054,8 @@
   "fuente_email": "",
   "instagram": "milan_tcg_store",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/milan_tcg_store/"
+  "fuente_contacto": "https://www.instagram.com/milan_tcg_store/",
+  "competencia": ""
  },
  {
   "id": "mr-loc",
@@ -1977,7 +2075,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "nokosos",
@@ -1997,7 +2096,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "oldie-but-golden",
@@ -2017,7 +2117,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "poison-potion",
@@ -2037,7 +2138,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "rtgamers",
@@ -2057,7 +2159,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "santino-pokestore",
@@ -2077,7 +2180,8 @@
   "fuente_email": "",
   "instagram": "santino_pokestore",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/santino_pokestore/"
+  "fuente_contacto": "https://www.instagram.com/santino_pokestore/",
+  "competencia": ""
  },
  {
   "id": "shinko-do",
@@ -2097,7 +2201,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "trainers-collector",
@@ -2117,7 +2222,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "wolf-cards",
@@ -2137,7 +2243,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "konoha",
@@ -2157,7 +2264,8 @@
   "fuente_email": "",
   "instagram": "konohastorechile",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/konohastorechile/"
+  "fuente_contacto": "https://www.instagram.com/konohastorechile/",
+  "competencia": ""
  },
  {
   "id": "vudu-gaming",
@@ -2177,7 +2285,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "funnyko",
@@ -2197,7 +2306,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cartones-guayacan",
@@ -2217,7 +2327,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ga-company",
@@ -2237,7 +2348,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tiendatcg-cl",
@@ -2257,7 +2369,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "+56 9 3178 2269",
-  "fuente_contacto": "https://tiendatcg.cl/"
+  "fuente_contacto": "https://tiendatcg.cl/",
+  "competencia": ""
  },
  {
   "id": "tcg-underground",
@@ -2277,7 +2390,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tcg-academy",
@@ -2297,7 +2411,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "poke-singles",
@@ -2317,7 +2432,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "level-up",
@@ -2337,7 +2453,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pay-to-win",
@@ -2357,7 +2474,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "metagaming",
@@ -2377,7 +2495,8 @@
   "fuente_email": "",
   "instagram": "meta.gamingcl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/meta.gamingcl/"
+  "fuente_contacto": "https://www.instagram.com/meta.gamingcl/",
+  "competencia": ""
  },
  {
   "id": "laira",
@@ -2397,7 +2516,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mesa-redonda",
@@ -2417,7 +2537,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "apolo",
@@ -2437,7 +2558,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gengarhub",
@@ -2457,7 +2579,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "royal-card",
@@ -2477,7 +2600,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "entre-juegos",
@@ -2497,7 +2621,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "devir",
@@ -2517,7 +2642,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mirax-hobbies-costanera",
@@ -2537,7 +2663,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "club-el-dado",
@@ -2557,7 +2684,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "shivano",
@@ -2577,7 +2705,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "la-forja-de-stone",
@@ -2597,7 +2726,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cafe-2d6",
@@ -2617,7 +2747,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "dame-mi-manga",
@@ -2637,7 +2768,8 @@
   "fuente_email": "https://www.facebook.com/DAMEMIMANGA.CL/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "encuadrocomics",
@@ -2657,7 +2789,8 @@
   "fuente_email": "https://encuadrocomics.cl/pages/contactanos",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "todocomics",
@@ -2677,7 +2810,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "super-lector",
@@ -2697,7 +2831,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "fyto-manga",
@@ -2717,7 +2852,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "shazam-comics",
@@ -2737,7 +2873,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "bazinga-comics",
@@ -2757,7 +2894,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-rey-del-comic",
@@ -2777,7 +2915,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mundo-del-anime",
@@ -2797,7 +2936,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gw-shop",
@@ -2817,7 +2957,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "funkoland",
@@ -2837,7 +2978,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ao-geek",
@@ -2857,7 +2999,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "iwa",
@@ -2877,7 +3020,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "command-center-vina-del-mar",
@@ -2897,7 +3041,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "la-mano-cargada",
@@ -2917,7 +3062,8 @@
   "fuente_email": "",
   "instagram": "lamanocargada",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/lamanocargada/"
+  "fuente_contacto": "https://www.instagram.com/lamanocargada/",
+  "competencia": ""
  },
  {
   "id": "panda",
@@ -2937,7 +3083,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "storm",
@@ -2957,7 +3104,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "akorgi",
@@ -2977,7 +3125,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "coon-amigos",
@@ -2997,7 +3146,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "rocket",
@@ -3017,7 +3167,8 @@
   "fuente_email": "",
   "instagram": "rocket_tcg",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/rocket_tcg/"
+  "fuente_contacto": "https://www.instagram.com/rocket_tcg/",
+  "competencia": ""
  },
  {
   "id": "tier-cero",
@@ -3037,7 +3188,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "moss-eisley",
@@ -3057,7 +3209,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "donquixote",
@@ -3077,7 +3230,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "playcard-tcg",
@@ -3097,7 +3251,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tienda-spells",
@@ -3117,7 +3272,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "arcadia",
@@ -3137,7 +3293,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cross",
@@ -3157,7 +3314,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "go-merry-cards",
@@ -3177,7 +3335,8 @@
   "fuente_email": "https://www.gomerrycards.cl/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "kori-manga",
@@ -3197,7 +3356,8 @@
   "fuente_email": "https://www.korimangastore.cl/contact",
   "instagram": "",
   "whatsapp": "+56 9 3098 8345",
-  "fuente_contacto": "https://www.korimangastore.cl/contact"
+  "fuente_contacto": "https://www.korimangastore.cl/contact",
+  "competencia": ""
  },
  {
   "id": "la-ira-del-nahuel-concepcion",
@@ -3217,7 +3377,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "la-cueva-del-androide",
@@ -3237,7 +3398,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ludipuerto",
@@ -3257,7 +3419,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "movistar-gameclub-talcahuano",
@@ -3277,7 +3440,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "bazar-geek",
@@ -3297,7 +3461,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "coleccionables-concepcion",
@@ -3317,7 +3482,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-calabozo",
@@ -3337,7 +3503,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "por3-juegos-de-rol-y-tablero",
@@ -3357,7 +3524,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "top-8-game-center",
@@ -3377,7 +3545,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "genrio",
@@ -3397,7 +3566,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "rey-mago",
@@ -3417,7 +3587,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gc-juegos",
@@ -3437,7 +3608,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "kurgan",
@@ -3457,7 +3629,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tienda-card-game",
@@ -3477,7 +3650,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pacmania-tcg-store-osorno",
@@ -3497,7 +3671,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "winterland",
@@ -3517,7 +3692,8 @@
   "fuente_email": "https://www.winterland.cl/",
   "instagram": "",
   "whatsapp": "+56 9 9565 7519",
-  "fuente_contacto": "https://www.winterland.cl/"
+  "fuente_contacto": "https://www.winterland.cl/",
+  "competencia": ""
  },
  {
   "id": "planeta-ttoys",
@@ -3537,7 +3713,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tienda-flor-y-truco",
@@ -3557,7 +3734,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tanuki",
@@ -3577,7 +3755,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "la-fortaleza",
@@ -3597,7 +3776,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "planeta-titan-patagonia",
@@ -3617,7 +3797,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tablecat",
@@ -3637,7 +3818,8 @@
   "fuente_email": "",
   "instagram": "tablecat.games",
   "whatsapp": "",
-  "fuente_contacto": "https://www.threads.com/@tablecat.games"
+  "fuente_contacto": "https://www.threads.com/@tablecat.games",
+  "competencia": ""
  },
  {
   "id": "rocadragon-oriente",
@@ -3657,7 +3839,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-kingo",
@@ -3677,7 +3860,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "anime-essential",
@@ -3697,7 +3881,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "miskatonic",
@@ -3717,7 +3902,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "zona-cero",
@@ -3737,7 +3923,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "friki-parada",
@@ -3757,7 +3944,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "card-universe",
@@ -3777,7 +3965,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "toys-toys",
@@ -3797,7 +3986,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "players-point",
@@ -3817,7 +4007,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ludi",
@@ -3837,7 +4028,8 @@
   "fuente_email": "",
   "instagram": "ludijuegos",
   "whatsapp": "",
-  "fuente_contacto": "https://lavozdemaipu.cl/juegos-de-mesa-y-tcg-pokemon-en-maipu/"
+  "fuente_contacto": "https://lavozdemaipu.cl/juegos-de-mesa-y-tcg-pokemon-en-maipu/",
+  "competencia": ""
  },
  {
   "id": "llanowar",
@@ -3857,7 +4049,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "chalada-midmall",
@@ -3877,7 +4070,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "guild-dreams",
@@ -3897,7 +4091,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "void",
@@ -3917,7 +4112,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "huntercard-tcg-las-condes",
@@ -3937,7 +4133,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": "Sucursal de Hunter Card TCG, marca propia Hunter Supplies."
  },
  {
   "id": "magicsur-los-dominicos",
@@ -3957,7 +4154,8 @@
   "fuente_email": "https://www.magicsur.cl/",
   "instagram": "magicsurchile",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/magicsurchile/"
+  "fuente_contacto": "https://www.instagram.com/magicsurchile/",
+  "competencia": ""
  },
  {
   "id": "next-dimension",
@@ -3977,7 +4175,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "addictionmodel",
@@ -3997,7 +4196,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tcgtcg",
@@ -4017,7 +4217,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tcg-d-wolff",
@@ -4037,7 +4238,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "arcadia-collects",
@@ -4057,7 +4259,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pokestop",
@@ -4077,7 +4280,8 @@
   "fuente_email": "",
   "instagram": "pokestop_cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/pokestop_cl/"
+  "fuente_contacto": "https://www.instagram.com/pokestop_cl/",
+  "competencia": ""
  },
  {
   "id": "mundo-saidok",
@@ -4097,7 +4301,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "play",
@@ -4117,7 +4322,8 @@
   "fuente_email": "https://play.limitlesstcg.com/tournament/689a8492196e12cfd56a5af3/details",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "onlycartitas",
@@ -4137,7 +4343,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "poke-store",
@@ -4157,7 +4364,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "+56 9 9532 0136",
-  "fuente_contacto": "https://www.pokestoretcg.cl/en/"
+  "fuente_contacto": "https://www.pokestoretcg.cl/en/",
+  "competencia": ""
  },
  {
   "id": "shinkatcg",
@@ -4177,7 +4385,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "the-pikaking",
@@ -4197,7 +4406,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cartas-magicsur",
@@ -4217,7 +4427,8 @@
   "fuente_email": "https://www.cylex.cl/providencia/magicsur-chile-11314457.html",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cardnexus",
@@ -4237,7 +4448,8 @@
   "fuente_email": "https://cardnexus.cl/contactanos/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gamehub",
@@ -4257,7 +4469,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "chronomagic",
@@ -4277,7 +4490,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "decks-cards",
@@ -4297,7 +4511,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cardindex",
@@ -4317,7 +4532,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "kurigames",
@@ -4337,7 +4553,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "geekz",
@@ -4357,7 +4574,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "geekz-rancagua",
@@ -4377,7 +4595,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "geekz-ovalle",
@@ -4397,7 +4616,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pasatime",
@@ -4417,7 +4637,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "irion-jugueteria",
@@ -4437,7 +4658,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "polar-hobbies",
@@ -4457,7 +4679,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "jugueteria-alemana",
@@ -4477,7 +4700,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "hangar-019",
@@ -4497,7 +4721,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "hobby-juegos-miniaturas",
@@ -4517,7 +4742,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "rocket-tcg-game",
@@ -4537,7 +4763,8 @@
   "fuente_email": "",
   "instagram": "rocket_tcg",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/rocket_tcg/"
+  "fuente_contacto": "https://www.instagram.com/rocket_tcg/",
+  "competencia": ""
  },
  {
   "id": "hell-store-sing",
@@ -4557,7 +4784,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-reino-friki",
@@ -4577,7 +4805,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gato-arcano",
@@ -4597,7 +4826,8 @@
   "fuente_email": "https://gatoarcano.cl/",
   "instagram": "",
   "whatsapp": "+56 9 3946 0507",
-  "fuente_contacto": "https://gatoarcano.cl/"
+  "fuente_contacto": "https://gatoarcano.cl/",
+  "competencia": ""
  },
  {
   "id": "ilusiones-industriales",
@@ -4617,7 +4847,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "j-juegos",
@@ -4637,7 +4868,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pac-mania-san-felipe",
@@ -4657,7 +4889,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "minas-the-morgul",
@@ -4677,7 +4910,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ozen-paradise",
@@ -4697,7 +4931,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "command-center-limache",
@@ -4717,7 +4952,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "command-center-vina-arlegui",
@@ -4737,7 +4973,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "la-loseta",
@@ -4757,7 +4994,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "altermundi",
@@ -4777,7 +5015,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "crazy-all-comics",
@@ -4797,7 +5036,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tsuki-manga",
@@ -4817,7 +5057,8 @@
   "fuente_email": "https://www.tsukimanga.cl/article/nuestras-tiendas",
   "instagram": "",
   "whatsapp": "+56 9 8526 4494",
-  "fuente_contacto": "https://www.tsukimanga.cl/article/nuestras-tiendas"
+  "fuente_contacto": "https://www.tsukimanga.cl/article/nuestras-tiendas",
+  "competencia": ""
  },
  {
   "id": "kimi-no-manga",
@@ -4837,7 +5078,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "galaxy-geek",
@@ -4857,7 +5099,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "top-8-fourcade",
@@ -4877,7 +5120,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tio-orco",
@@ -4897,7 +5141,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "nueve-titanes",
@@ -4917,7 +5162,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "dunamis",
@@ -4937,7 +5183,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "puchu",
@@ -4957,7 +5204,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "cat-kawaii",
@@ -4977,7 +5225,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-portal",
@@ -4997,7 +5246,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "active",
@@ -5017,7 +5267,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "zona-x-gamers",
@@ -5037,7 +5288,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tcg-planet",
@@ -5057,7 +5309,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "game-vault",
@@ -5077,7 +5330,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "lvl-up-geek",
@@ -5097,7 +5351,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pokesos",
@@ -5117,7 +5372,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pikastore",
@@ -5137,7 +5393,8 @@
   "fuente_email": "",
   "instagram": "pikastoretcg",
   "whatsapp": "",
-  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/"
+  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/",
+  "competencia": ""
  },
  {
   "id": "armagedon",
@@ -5157,7 +5414,8 @@
   "fuente_email": "",
   "instagram": "armagedontcg",
   "whatsapp": "",
-  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/"
+  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/",
+  "competencia": ""
  },
  {
   "id": "griffin",
@@ -5177,7 +5435,8 @@
   "fuente_email": "",
   "instagram": "griffingamescl",
   "whatsapp": "",
-  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/"
+  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/",
+  "competencia": ""
  },
  {
   "id": "ikigai-center",
@@ -5197,7 +5456,8 @@
   "fuente_email": "",
   "instagram": "ikigaicenter_cl",
   "whatsapp": "",
-  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/"
+  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/",
+  "competencia": ""
  },
  {
   "id": "geekers",
@@ -5217,7 +5477,8 @@
   "fuente_email": "",
   "instagram": "geekers.oficial",
   "whatsapp": "",
-  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/"
+  "fuente_contacto": "https://los40.cl/2026/07/27/trading-fest-chile-2026-conoce-las-mas-de-50-tiendas-confirmadas-para-la-gran-cita-del-tcg/",
+  "competencia": ""
  },
  {
   "id": "stash-collector",
@@ -5237,7 +5498,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "zeo",
@@ -5257,7 +5519,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tataki",
@@ -5277,7 +5540,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "aso",
@@ -5297,7 +5561,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "toyskipper",
@@ -5317,7 +5582,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "pokecenter7",
@@ -5337,7 +5603,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "dreamdeck",
@@ -5357,7 +5624,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tienda-eternia",
@@ -5377,7 +5645,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "doll",
@@ -5397,7 +5666,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "meta-play",
@@ -5417,7 +5687,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mangafans",
@@ -5437,7 +5708,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "kodoku-manga",
@@ -5457,7 +5729,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "bazarhistorias",
@@ -5477,7 +5750,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "club-del-goblin",
@@ -5497,7 +5771,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "panini-point-mallplaza-oeste",
@@ -5517,7 +5792,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "sidedeck-cl-accesorios",
@@ -5537,7 +5813,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": "Vende accesorios TCG propios (fundas, carpetas, playmats). https://sidedeck.cl/collections/accesorios-tcg"
  },
  {
   "id": "tcg-coleccionistas",
@@ -5557,7 +5834,8 @@
   "fuente_email": "",
   "instagram": "tcgcoleccionistas.cl",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/tcgcoleccionistas.cl/"
+  "fuente_contacto": "https://www.instagram.com/tcgcoleccionistas.cl/",
+  "competencia": ""
  },
  {
   "id": "blogfiction",
@@ -5577,7 +5855,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "warpig",
@@ -5597,7 +5876,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "playcenter",
@@ -5617,7 +5897,8 @@
   "fuente_email": "https://playcenter.cl/",
   "instagram": "playcenter_chile",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/playcenter_chile/"
+  "fuente_contacto": "https://www.instagram.com/playcenter_chile/",
+  "competencia": ""
  },
  {
   "id": "chile-board",
@@ -5637,7 +5918,8 @@
   "fuente_email": "https://chileboardgames.com/",
   "instagram": "",
   "whatsapp": "+56 9 8271 1449",
-  "fuente_contacto": "https://chileboardgames.com/"
+  "fuente_contacto": "https://chileboardgames.com/",
+  "competencia": ""
  },
  {
   "id": "weplay",
@@ -5657,7 +5939,8 @@
   "fuente_email": "https://www.facebook.com/weplay.chile/",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "ludum-bar",
@@ -5677,7 +5960,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "el-desafio-cafeteria",
@@ -5697,7 +5981,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "mana-house",
@@ -5717,7 +6002,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "aldea-juegos",
@@ -5737,7 +6023,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "tertulia",
@@ -5757,7 +6044,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "diverti",
@@ -5777,7 +6065,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "rivendel",
@@ -5797,7 +6086,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "valhalla",
@@ -5817,7 +6107,8 @@
   "fuente_email": "",
   "instagram": "",
   "whatsapp": "",
-  "fuente_contacto": ""
+  "fuente_contacto": "",
+  "competencia": ""
  },
  {
   "id": "gecko-card",
@@ -5836,7 +6127,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "gecko.card",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/gecko.card/"
+  "fuente_contacto": "https://www.instagram.com/gecko.card/",
+  "competencia": ""
  },
  {
   "id": "turno-zero",
@@ -5855,7 +6147,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "turnozero.tco",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/turnozero.tco/"
+  "fuente_contacto": "https://www.instagram.com/turnozero.tco/",
+  "competencia": ""
  },
  {
   "id": "freaky-store-iquique",
@@ -5874,7 +6167,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "freakystoreiqq",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/freakystoreiqq/"
+  "fuente_contacto": "https://www.instagram.com/freakystoreiqq/",
+  "competencia": ""
  },
  {
   "id": "zendicard",
@@ -5893,7 +6187,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "zendicard_chile",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/zendicard_chile/"
+  "fuente_contacto": "https://www.instagram.com/zendicard_chile/",
+  "competencia": ""
  },
  {
   "id": "voodoo-tcg",
@@ -5912,7 +6207,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "voodootcgstore",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/voodootcgstore/"
+  "fuente_contacto": "https://www.instagram.com/voodootcgstore/",
+  "competencia": ""
  },
  {
   "id": "tcg-store-ig",
@@ -5931,7 +6227,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "tcg.store",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/tcg.store/"
+  "fuente_contacto": "https://www.instagram.com/tcg.store/",
+  "competencia": ""
  },
  {
   "id": "tcg-mansion",
@@ -5950,7 +6247,8 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "tcgmansionshop",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/tcgmansionshop/"
+  "fuente_contacto": "https://www.instagram.com/tcgmansionshop/",
+  "competencia": ""
  },
  {
   "id": "poke-store-tcg-concepcion",
@@ -5969,6 +6267,7 @@
   "canal": "Instagram / WhatsApp",
   "instagram": "poke.storetcg",
   "whatsapp": "",
-  "fuente_contacto": "https://www.instagram.com/poke.storetcg/"
+  "fuente_contacto": "https://www.instagram.com/poke.storetcg/",
+  "competencia": ""
  }
 ]

@@ -95,7 +95,8 @@ overpowerarmor.cl"""
 def main():
     vistos, salida = set(), []
     for t in TIENDAS:
-        if not t.get("email") or t["email"] in vistos:
+        # Las tiendas marcadas como competencia no reciben la oferta mayorista.
+        if not t.get("email") or t["email"] in vistos or t.get("competencia"):
             continue
         vistos.add(t["email"])
         nombre = t["nombre"].replace("Magicsur Los Dominicos", "Magicsur")

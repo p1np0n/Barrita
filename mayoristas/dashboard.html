@@ -53,6 +53,7 @@ tr:last-child td{border-bottom:0}
 a{color:var(--info)}
 .pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;white-space:nowrap;font-weight:500}
 .p-A{background:var(--accent-soft);color:var(--accent)} .p-B{background:var(--info-soft);color:var(--info)} .p-C{background:var(--line);color:var(--muted)}
+.p-comp{background:var(--bad-soft);color:var(--bad)}
 .v-web{background:var(--ok-soft);color:var(--ok)} .v-dir{background:var(--info-soft);color:var(--info)} .v-conf{background:var(--warn-soft);color:var(--warn)}
 td select{width:100%;min-width:140px}
 td input.nota{width:100%;min-width:160px}
@@ -121,7 +122,7 @@ td input.nota{width:100%;min-width:160px}
     <select id="f-est" aria-label="Estado"><option value="">Todos los estados</option></select>
     <select id="f-val" aria-label="Validación"><option value="">Toda validación</option></select>
     <select id="f-tipo" aria-label="Tipo de tienda"><option value="">Todo tipo</option></select>
-    <select id="f-mail" aria-label="Contacto"><option value="">Todo contacto</option><option value="email">Con correo</option><option value="social">Con Instagram o WhatsApp</option><option value="ninguno">Sin contacto</option></select>
+    <select id="f-mail" aria-label="Contacto"><option value="">Todo contacto</option><option value="email">Con correo</option><option value="social">Con Instagram o WhatsApp</option><option value="ninguno">Sin contacto</option><option value="competencia">Competencia</option></select>
   </div>
   <div class="tbl"><table>
     <thead><tr><th>Tienda</th><th>Juegos</th><th>Prioridad</th><th>Validación</th><th>Canal y contacto</th><th>Estado</th><th>Nota</th></tr></thead>
@@ -331,7 +332,7 @@ function renderTabla(){
   const fp = document.getElementById("f-prio").value, fr = document.getElementById("f-reg").value, fe = document.getElementById("f-est").value, fv = document.getElementById("f-val").value;
   const ft = document.getElementById("f-tipo").value, fm = document.getElementById("f-mail").value;
   const orden = {A:0,B:1,C:2};
-  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv) && (!ft || t.tipo===ft) && (!fm || (fm==="email" ? t.email : fm==="social" ? (t.instagram||t.whatsapp) : !(t.email||t.instagram||t.whatsapp)))
+  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv) && (!ft || t.tipo===ft) && (!fm || (fm==="competencia" ? t.competencia : fm==="email" ? t.email : fm==="social" ? (t.instagram||t.whatsapp) : !(t.email||t.instagram||t.whatsapp)))
       && (!q || [t.nombre,t.comuna,t.juegos,t.region].join(" ").toLowerCase().includes(q)))
     .sort((a,b) => (orden[a.prioridad]-orden[b.prioridad]) || a.nombre.localeCompare(b.nombre));
   const body = document.getElementById("t-body");
@@ -342,7 +343,7 @@ function renderTabla(){
     const src = t.fuente ? `<a href="${esc(t.fuente)}" target="_blank" rel="noopener">fuente</a>` : "";
     const est = t.estado || "Por contactar";
     return `<tr>
-      <td><div class="name">${esc(t.nombre)}</div><div class="sub">${esc(t.comuna)}${t.region?" · "+esc(t.region):""}</div><div class="sub">${esc(t.direccion)}</div><div class="sub">${[link,src].filter(Boolean).join(" · ")}</div></td>
+      <td><div class="name">${esc(t.nombre)}${t.competencia?' <span class="pill p-comp" title="'+esc(t.competencia)+'">Competencia · no contactar</span>':''}</div><div class="sub">${esc(t.comuna)}${t.region?" · "+esc(t.region):""}</div><div class="sub">${esc(t.direccion)}</div><div class="sub">${[link,src].filter(Boolean).join(" · ")}</div></td>
       <td>${esc(t.juegos)}${t.eventos?'<div class="sub">Con torneos</div>':''}</td>
       <td><span class="pill p-${esc(t.prioridad)}">${esc(t.prioridad)}</span></td>
       <td><span class="pill ${vClass(t.validacion)}">${esc(t.validacion)}</span></td>

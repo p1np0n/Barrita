@@ -1,0 +1,10 @@
+__pycache__/
+*.pyc
+.venv/
+.venv312/
+*.bin
+dist/
+build/
+*.spec
+mayoristas/presentacion/img/
+mayoristas/presentacion/__pycache__/

@@ -1,0 +1,408 @@
+<title>OPA Mayoristas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: banda de KPIs arriba, luego secciones apiladas (pipeline, catálogo, calculadora, guiones). Paleta: tinta azul pizarra + dorado "foil" de carta rara. */
+:root{
+  --bg:#f3f4f6; --surface:#ffffff; --ink:#18202b; --muted:#5b6575; --line:#dde1e7;
+  --accent:#b07a12; --accent-soft:#f6ecd6; --band:#1c2633; --band-ink:#eef1f5;
+  --ok:#1f7a4d; --ok-soft:#dff2e8; --warn:#9a5b00; --warn-soft:#fbeed6; --bad:#a3323a; --bad-soft:#f8e1e3; --info:#2c5d93; --info-soft:#e1ebf7;
+  --display:"Barlow Condensed","Arial Narrow",sans-serif; --body:"IBM Plex Sans",system-ui,sans-serif; --mono:"IBM Plex Mono",ui-monospace,monospace;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#11161d; --surface:#18202a; --ink:#e6eaf0; --muted:#9aa5b4; --line:#2a3542;
+  --accent:#e0aa45; --accent-soft:#3a2f18; --band:#0b0f14; --band-ink:#eef1f5;
+  --ok:#5fcf98; --ok-soft:#173527; --warn:#f0b65c; --warn-soft:#3a2c14; --bad:#f08a91; --bad-soft:#3d1d21; --info:#86b4ea; --info-soft:#1a2b40; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11161d; --surface:#18202a; --ink:#e6eaf0; --muted:#9aa5b4; --line:#2a3542;
+  --accent:#e0aa45; --accent-soft:#3a2f18; --band:#0b0f14; --band-ink:#eef1f5;
+  --ok:#5fcf98; --ok-soft:#173527; --warn:#f0b65c; --warn-soft:#3a2c14; --bad:#f08a91; --bad-soft:#3d1d21; --info:#86b4ea; --info-soft:#1a2b40; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font:15px/1.5 var(--body)}
+.wrap{max-width:1180px;margin:0 auto;padding-block:0 64px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.band{background:var(--band);color:var(--band-ink)}
+header .wrap{padding-block:28px 26px;display:grid;gap:18px}
+h1,h2{font-family:var(--display);letter-spacing:.01em;text-wrap:balance;margin:0}
+h1{font-size:clamp(30px,5vw,44px);line-height:1}
+h1 span{color:var(--accent)}
+.lede{color:#b9c2ce;max-width:68ch;margin:0}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.kpi{border:1px solid #2f3b4a;border-radius:6px;padding:12px 14px}
+.kpi b{display:block;font:600 30px/1.1 var(--display);color:#fff;font-variant-numeric:tabular-nums}
+.kpi small{color:#9fb0c3;font-size:12px;text-transform:uppercase;letter-spacing:.06em}
+section{margin-top:40px;display:grid;gap:14px}
+.sec-head{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:8px}
+h2{font-size:28px}
+.note{color:var(--muted);font-size:13px;margin:0;max-width:75ch}
+.filters{display:flex;flex-wrap:wrap;gap:8px}
+select,input,textarea,button{font:inherit;color:var(--ink)}
+select,input[type=text],input[type=number],textarea{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:7px 9px}
+input[type=search]{background:var(--surface);border:1px solid var(--line);border-radius:5px;padding:7px 9px;min-width:0;flex:1 1 200px}
+button{cursor:pointer;border:1px solid var(--line);background:var(--surface);border-radius:5px;padding:7px 12px}
+button.primary{background:var(--accent);border-color:var(--accent);color:#1a1205;font-weight:600}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:6px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;min-width:820px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);font-weight:600;background:var(--surface);position:sticky;top:0}
+td.num,th.num{text-align:right;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.name{font-weight:600}
+.sub{color:var(--muted);font-size:13px}
+a{color:var(--info)}
+.pill{display:inline-block;font-size:12px;padding:2px 8px;border-radius:99px;white-space:nowrap;font-weight:500}
+.p-A{background:var(--accent-soft);color:var(--accent)} .p-B{background:var(--info-soft);color:var(--info)} .p-C{background:var(--line);color:var(--muted)}
+.p-comp{background:var(--bad-soft);color:var(--bad)}
+.v-web{background:var(--ok-soft);color:var(--ok)} .v-dir{background:var(--info-soft);color:var(--info)} .v-conf{background:var(--warn-soft);color:var(--warn)}
+td select{width:100%;min-width:140px}
+td input.nota{width:100%;min-width:160px}
+.st-Cliente{border-color:var(--ok)!important;color:var(--ok)!important}
+.st-Descartada{color:var(--muted)!important}
+.empty{padding:28px;text-align:center;color:var(--muted)}
+.funnel{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:8px}
+.stage{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:10px 12px}
+.stage b{font:600 24px/1 var(--display);font-variant-numeric:tabular-nums}
+.stage .bar{height:4px;background:var(--line);border-radius:2px;margin-top:8px;overflow:hidden}
+.stage .bar i{display:block;height:100%;background:var(--accent)}
+.tiers{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px}
+.tier{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;gap:4px;text-align:left}
+.tier[aria-pressed=true]{border-color:var(--accent);box-shadow:inset 0 0 0 1px var(--accent)}
+.tier h3{margin:0;font:700 22px/1 var(--display)}
+.tier .big{font:600 34px/1 var(--display);color:var(--accent)}
+.calc{display:grid;grid-template-columns:minmax(0,2fr) minmax(0,1fr);gap:14px}
+@media (max-width:820px){.calc{grid-template-columns:1fr}}
+.summary{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:16px;display:grid;gap:8px;align-content:start}
+.summary .row{display:flex;justify-content:space-between;gap:10px}
+.summary .row span:last-child{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.summary .total{font:600 30px/1.1 var(--display)}
+.qty{width:72px;text-align:right}
+.scripts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.script{background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:14px;display:grid;gap:8px;min-width:0}
+.script pre{white-space:pre-wrap;margin:0;font:13px/1.55 var(--body);background:var(--bg);padding:10px;border-radius:4px}
+.steps{display:grid;gap:8px;margin:0;padding-left:22px}
+.addform{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:6px;padding:12px}
+.status{font-size:13px;color:var(--muted)}
+.mail{font-family:var(--mono);font-size:12px;color:var(--ink);user-select:all;word-break:break-all}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<header class="band">
+  <div class="wrap">
+    <div>
+      <h1>Over Power Armor <span>· Mayoristas</span></h1>
+    </div>
+    <p class="lede">299 tiendas de Chile (TCG, juegos de mesa, cómics y hobbies) para vender tus accesorios al por mayor, con precios que le dejan a la tienda entre 20 % y 30 % de margen. Marca el avance de cada contacto en la tabla; se guarda para todos los que abran esta página.</p>
+    <div class="kpis" id="kpis">
+      <div class="kpi"><small>Tiendas en la lista</small><b id="k-total">–</b></div>
+      <div class="kpi"><small>Validadas</small><b id="k-valid">–</b></div>
+      <div class="kpi"><small>Prioridad A</small><b id="k-a">–</b></div>
+      <div class="kpi"><small>Con correo</small><b id="k-mail">–</b></div>
+      <div class="kpi"><small>Con IG o WhatsApp</small><b id="k-soc">–</b></div>
+      <div class="kpi"><small>Clientes</small><b id="k-cli">–</b></div>
+      <div class="kpi"><small>Stock a precio Oro</small><b id="k-stock">–</b></div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section id="pipeline">
+  <div class="sec-head"><h2>Embudo de ventas</h2><span class="status" id="db-status">Conectando…</span></div>
+  <div class="funnel" id="funnel"></div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Tiendas</h2></div>
+  <p class="note"><b>Validación:</b> «Sitio web activo» = su web propia aparece indexada hoy; «Directorio TorneosTCG», «Expositor TCG CON / Trading Fest 2026», «Lista oficial Bandai / Digimon / Gundam» y «Localizador Wizards» = aparece en esa fuente con su ficha; «Por confirmar» = solo aparece en listas antiguas o de terceros, puede estar cerrada. <b>Prioridad:</b> A = cerca de Maipú o con torneos semanales (alto consumo de fundas), B = resto de Santiago y ciudades grandes, C = regiones con envío.</p>
+  <div class="filters">
+    <input type="search" id="f-q" placeholder="Buscar tienda, comuna o juego" aria-label="Buscar">
+    <select id="f-prio" aria-label="Prioridad"><option value="">Toda prioridad</option><option>A</option><option>B</option><option>C</option></select>
+    <select id="f-reg" aria-label="Región"><option value="">Todas las regiones</option></select>
+    <select id="f-est" aria-label="Estado"><option value="">Todos los estados</option></select>
+    <select id="f-val" aria-label="Validación"><option value="">Toda validación</option></select>
+    <select id="f-tipo" aria-label="Tipo de tienda"><option value="">Todo tipo</option></select>
+    <select id="f-mail" aria-label="Contacto"><option value="">Todo contacto</option><option value="email">Con correo</option><option value="social">Con Instagram o WhatsApp</option><option value="ninguno">Sin contacto</option><option value="competencia">Competencia</option></select>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Tienda</th><th>Juegos</th><th>Prioridad</th><th>Validación</th><th>Canal y contacto</th><th>Estado</th><th>Nota</th></tr></thead>
+    <tbody id="t-body"><tr><td colspan="7" class="empty">Cargando tiendas… Si no aparecen, la lista se carga desde la base de datos de esta página.</td></tr></tbody>
+  </table></div>
+  <details>
+    <summary>Agregar una tienda nueva</summary>
+    <form class="addform" id="addform">
+      <input type="text" id="n-nombre" placeholder="Nombre *" required>
+      <input type="text" id="n-comuna" placeholder="Comuna / ciudad">
+      <input type="text" id="n-region" placeholder="Región (RM, Biobío…)">
+      <input type="text" id="n-dir" placeholder="Dirección">
+      <input type="text" id="n-web" placeholder="Web o Instagram">
+      <input type="text" id="n-juegos" placeholder="Juegos">
+      <select id="n-prio"><option>A</option><option selected>B</option><option>C</option></select>
+      <button class="primary" type="submit">Agregar tienda</button>
+    </form>
+  </details>
+</section>
+
+<section id="catalogo">
+  <div class="sec-head"><h2>Catálogo mayorista</h2><span class="status">Precios Shopify al 29-10-2026 · CLP con IVA</span></div>
+  <p class="note">Precio mayorista = PVP × (1 − margen). La tienda compra a ese precio, vende al PVP sugerido y se queda con el margen del nivel. El margen OPA es lo que te queda a ti sobre el costo cargado en Shopify.</p>
+  <div class="tiers" id="tiers"></div>
+  <div class="tbl"><table>
+    <thead><tr><th>Producto</th><th class="num">Stock</th><th class="num">Peso</th><th class="num">PVP</th><th class="num">Precio tienda</th><th class="num">Gana la tienda / u.</th><th class="num">Margen OPA</th></tr></thead>
+    <tbody id="c-body"></tbody>
+  </table></div>
+</section>
+
+<section id="calculadora">
+  <div class="sec-head"><h2>Cotizador de pedido</h2></div>
+  <p class="note">Ingresa cantidades y el nivel se elige solo según el monto (sobre PVP). Úsalo en la visita para mostrarle a la tienda cuánto gana.</p>
+  <div class="calc">
+    <div class="tbl"><table style="min-width:520px">
+      <thead><tr><th>Producto</th><th class="num">PVP</th><th class="num">Cantidad</th></tr></thead>
+      <tbody id="q-body"></tbody>
+    </table></div>
+    <div class="summary" id="q-sum"></div>
+  </div>
+</section>
+
+<section id="guiones">
+  <div class="sec-head"><h2>Mensajes para contactar</h2></div>
+  <div class="scripts" id="scripts"></div>
+</section>
+
+<section>
+  <div class="sec-head"><h2>Cómo cierra una venta en Shopify</h2></div>
+  <ol class="steps">
+    <li>La tienda acepta: créala en Shopify como <b>Empresa</b> (Clientes → Empresas) y asígnale su contacto. Así entra al segmento «Clientes añadidos a empresas».</li>
+    <li>Le envías el código de su nivel: <b>MAYORISTA20</b> (desde $60.000), <b>MAYORISTA25</b> (desde $150.000) u <b>MAYORISTA30</b> (desde $300.000). Ya están creados y solo funcionan para clientes de empresas.</li>
+    <li>Compra en overpowerarmor.cl con su cuenta y el código; el descuento se aplica sobre el PVP y le deja exactamente su margen.</li>
+    <li>Marca la tienda como «Cliente» aquí. Revisa el stock antes: varios productos tienen menos de 20 unidades.</li>
+  </ol>
+</section>
+
+</main>
+
+<script>
+const PRODUCTOS = [{"producto":"Protectores Penny Sleeves - Fit 65x90 (100 u.)","tipo":"Protectores","pvp":2690,"costo":1100,"stock":50,"peso_kg":0.2,"variantes":""},{"producto":"Protectores Penny Sleeves - Perfect Fit 64x89 (100 u.)","tipo":"Protectores","pvp":2690,"costo":1100,"stock":50,"peso_kg":0.2,"variantes":""},{"producto":"Protectores Penny Sleeves - OverSleeves 69x94 (100 u.)","tipo":"Protectores","pvp":2690,"costo":1100,"stock":50,"peso_kg":0.2,"variantes":""},{"producto":"Protectores para Cartas Regular Fit 65x90 mm","tipo":"Protectores","pvp":2690,"costo":null,"stock":30,"peso_kg":null,"variantes":""},{"producto":"Protector Over Sleeve Rugosos 69x94","tipo":"Protectores","pvp":4490,"costo":1500,"stock":100,"peso_kg":0.2,"variantes":""},{"producto":"25 Toploaders 35PT","tipo":"Almacenamiento","pvp":7990,"costo":null,"stock":40,"peso_kg":0.3,"variantes":""},{"producto":"Mini Snap - Protector acrílico a presión","tipo":"Protectores","pvp":1200,"costo":null,"stock":80,"peso_kg":0.1,"variantes":""},{"producto":"Acrílico Magnético - Magnetic Holder 35pt","tipo":"Protectores","pvp":3500,"costo":null,"stock":20,"peso_kg":null,"variantes":""},{"producto":"Grading Case Nuevo Vacío","tipo":"Protectores","pvp":3000,"costo":null,"stock":100,"peso_kg":0.2,"variantes":"Clara"},{"producto":"Base Negra Holder","tipo":"Protectores","pvp":1290,"costo":null,"stock":100,"peso_kg":0.1,"variantes":"Negro"},{"producto":"Base Tipo A Transparente Acrílica","tipo":"Protectores","pvp":4990,"costo":null,"stock":20,"peso_kg":0.2,"variantes":""},{"producto":"Deck Box - Porta Mazo 80+","tipo":"Almacenamiento","pvp":1990,"costo":750,"stock":20,"peso_kg":null,"variantes":"Negro, Azul"},{"producto":"Separadores de Cartas x7","tipo":"Separadores","pvp":1990,"costo":300,"stock":18,"peso_kg":0.3,"variantes":"Celeste (Negro agotado)"},{"producto":"20 Hojas para Cartas de Entrada Lateral","tipo":"Archivadores","pvp":6500,"costo":1000,"stock":100,"peso_kg":0.5,"variantes":""},{"producto":"Playmate Impermeable Ecocuero","tipo":"Playmate","pvp":4990,"costo":1200,"stock":59,"peso_kg":null,"variantes":"Negro, Púrpura, Rojo"},{"producto":"Porta Playmate simple Transparente","tipo":"Porta Playmate","pvp":4990,"costo":1000,"stock":50,"peso_kg":0.35,"variantes":""},{"producto":"Dispensador de Fundas y Toploaders","tipo":"Almacenamiento","pvp":4990,"costo":null,"stock":9,"peso_kg":null,"variantes":"Negro, Blanco, Gris"},{"producto":"Caja Acrílica ETB Pokémon","tipo":"Accesorios Pokémon TCG","pvp":29990,"costo":null,"stock":4,"peso_kg":null,"variantes":""},{"producto":"Caja de Almacenamiento Armable 3200+ (preventa)","tipo":"Almacenamiento","pvp":9900,"costo":null,"stock":0,"peso_kg":0.45,"variantes":""},{"producto":"Carpeta Almacenamiento 360 Espacios con Elástico (preventa)","tipo":"Archivadores","pvp":8990,"costo":null,"stock":0,"peso_kg":null,"variantes":"Azul, Morado, Negro"}];
+const ESTADOS = ["Por contactar","Contactada","Interesada","Muestra enviada","Cliente","Descartada"];
+const NIVELES = [
+  {id:"Bronce", m:0.20, min:60000, code:"MAYORISTA20"},
+  {id:"Plata",  m:0.25, min:150000, code:"MAYORISTA25"},
+  {id:"Oro",    m:0.30, min:300000, code:"MAYORISTA30"}];
+const clp = n => "$" + Math.round(n).toLocaleString("es-CL");
+const kg = n => n == null ? "—" : (n < 1 ? (n*1000).toLocaleString("es-CL") + " g" : n.toLocaleString("es-CL") + " kg");
+const r10 = n => Math.round(n/10)*10;
+const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+let tiendas = [];
+let nivel = "Oro";
+let db = null, canWrite = false;
+const statusEl = document.getElementById("db-status");
+
+/* ---------- Catálogo ---------- */
+function renderTiers(){
+  const el = document.getElementById("tiers");
+  el.innerHTML = NIVELES.map(n => `<button class="tier" type="button" aria-pressed="${n.id===nivel}" data-n="${n.id}">
+    <h3>${n.id}</h3><span class="big">${Math.round(n.m*100)} %</span>
+    <span class="sub">margen para la tienda · pedido mínimo ${clp(n.min)}</span>
+    <span class="sub">Código Shopify: <b>${n.code}</b></span></button>`).join("");
+  el.querySelectorAll(".tier").forEach(b => b.onclick = () => { nivel = b.dataset.n; renderTiers(); renderCatalogo(); });
+}
+function renderCatalogo(){
+  const n = NIVELES.find(x => x.id === nivel);
+  document.getElementById("c-body").innerHTML = PRODUCTOS.map(p => {
+    const pm = r10(p.pvp*(1-n.m));
+    const mo = p.costo ? Math.round((pm-p.costo)/pm*100) + " %" : '<span class="sub">sin costo</span>';
+    return `<tr><td><span class="name">${esc(p.producto)}</span>${p.variantes?'<div class="sub">'+esc(p.variantes)+'</div>':''}</td>
+      <td class="num">${p.stock || '<span class="pill v-conf">preventa</span>'}</td><td class="num">${kg(p.peso_kg)}</td>
+      <td class="num">${clp(p.pvp)}</td><td class="num"><b>${clp(pm)}</b></td><td class="num">${clp(p.pvp-pm)}</td><td class="num">${mo}</td></tr>`;
+  }).join("");
+}
+
+/* ---------- Cotizador ---------- */
+const qty = {};
+function renderCotizador(){
+  document.getElementById("q-body").innerHTML = PRODUCTOS.filter(p => p.stock > 0).map((p,i) =>
+    `<tr><td>${esc(p.producto)}</td><td class="num">${clp(p.pvp)}</td>
+     <td class="num"><input class="qty" type="number" min="0" max="${p.stock}" id="q-${i}" data-p="${esc(p.producto)}" value="${qty[p.producto]||0}" aria-label="Cantidad ${esc(p.producto)}"></td></tr>`).join("");
+  document.querySelectorAll(".qty").forEach(inp => inp.oninput = () => { qty[inp.dataset.p] = Math.max(0, +inp.value || 0); renderResumen(); });
+  renderResumen();
+}
+function renderResumen(){
+  let bruto = 0, peso = 0, unidades = 0, sinPeso = false;
+  PRODUCTOS.forEach(p => { const q = qty[p.producto] || 0; if(!q) return; bruto += q*p.pvp; unidades += q; if(p.peso_kg==null) sinPeso = true; else peso += q*p.peso_kg; });
+  const n = [...NIVELES].reverse().find(x => bruto >= x.min);
+  const falta = NIVELES.find(x => bruto < x.min);
+  const neto = n ? bruto*(1-n.m) : bruto;
+  document.getElementById("q-sum").innerHTML = `
+    <div class="row"><span>Unidades</span><span>${unidades}</span></div>
+    <div class="row"><span>Valor a PVP</span><span>${clp(bruto)}</span></div>
+    <div class="row"><span>Nivel</span><span>${n ? n.id + " (" + Math.round(n.m*100) + " %)" : "Bajo el mínimo"}</span></div>
+    <div class="row"><span>Paga la tienda</span><span class="total">${clp(neto)}</span></div>
+    <div class="row"><span>Gana la tienda al revender</span><span>${clp(bruto-neto)}</span></div>
+    <div class="row"><span>Peso aprox. del envío</span><span>${kg(Math.round(peso*100)/100)}${sinPeso?" + ítems sin peso":""}</span></div>
+    ${falta ? '<p class="note">Faltan '+clp(falta.min-bruto)+' (a PVP) para el nivel '+falta.id+'.</p>' : ''}
+    <p class="note">Código a usar: <b>${n ? n.code : "—"}</b></p>`;
+}
+
+/* ---------- Guiones ---------- */
+const GUIONES = [
+  {t:"WhatsApp / Instagram (primer contacto)", x:`Hola, ¿cómo están? Soy Iván de Over Power Armor (overpowerarmor.cl), marca chilena de accesorios para TCG: fundas penny, oversleeves 69x94, toploaders 35pt, deck box, playmates y bases acrílicas.
+
+Estamos abriendo venta mayorista para tiendas: precios que les dejan entre 20 % y 30 % de margen vendiendo a nuestro precio público, desde $60.000 de pedido.
+
+¿Les puedo enviar el catálogo con precios para tiendas? También puedo pasar a dejarles muestras.`},
+  {t:"Email (tiendas con web)", x:`Asunto: Accesorios TCG al por mayor con 20–30 % de margen para su tienda
+
+Hola equipo de {TIENDA}:
+
+Soy Iván, de Over Power Armor (overpowerarmor.cl). Vendemos accesorios para cartas coleccionables: protectores penny 64x89 y 65x90, oversleeves 69x94, toploaders 35pt, grading cases, acrílicos magnéticos, deck box y playmates.
+
+Para tiendas tenemos tres niveles:
+• Bronce: 20 % de margen, pedido desde $60.000
+• Plata: 25 % de margen, desde $150.000
+• Oro: 30 % de margen, desde $300.000
+
+Ejemplo: el pack de 100 fundas penny se vende a $2.690; a precio Oro la tienda lo compra a $1.880.
+
+Despachamos desde Maipú a todo Chile. ¿Les envío el catálogo completo o coordinamos una visita con muestras?
+
+Saludos,
+Iván — Over Power Armor`},
+  {t:"Visita en tienda (guion corto)", x:`1. Preséntate y deja una muestra: 1 pack de penny sleeves + 1 oversleeve.
+2. Pregunta qué fundas venden más en sus torneos y a qué precio.
+3. Muestra el cotizador de esta página con un pedido de ejemplo y cuánto ganan.
+4. Ofrece el nivel Bronce para partir ($60.000) y Oro si llevan $300.000.
+5. Anota en la tabla el estado y quién es el contacto.`},
+  {t:"Seguimiento (3–5 días después)", x:`Hola {TIENDA}, les escribo para saber si pudieron revisar el catálogo de Over Power Armor. Esta semana tengo stock de penny sleeves, oversleeves y playmates. Si quieren partir con un pedido chico de $60.000 para probar la rotación, se los despacho al tiro.`}
+];
+function renderGuiones(){
+  const el = document.getElementById("scripts");
+  el.innerHTML = GUIONES.map((g,i) => `<div class="script"><b>${esc(g.t)}</b><pre id="g-${i}">${esc(g.x)}</pre><button type="button" data-i="${i}">Copiar</button></div>`).join("");
+  el.querySelectorAll("button").forEach(b => b.onclick = () => {
+    const txt = GUIONES[b.dataset.i].x;
+    navigator.clipboard.writeText(txt).then(() => { b.textContent = "Copiado"; setTimeout(()=>b.textContent="Copiar",1500); })
+      .catch(() => { const r = document.createRange(); r.selectNodeContents(document.getElementById("g-"+b.dataset.i)); const s = getSelection(); s.removeAllRanges(); s.addRange(r); b.textContent = "Texto seleccionado: copia con Ctrl+C"; });
+  });
+}
+
+/* ---------- Tiendas / embudo ---------- */
+function contacto(t){
+  const partes = [];
+  if (t.email) partes.push('<div class="mail">'+esc(t.email)+'</div>');
+  if (t.instagram) partes.push('<div><a href="https://www.instagram.com/'+encodeURIComponent(t.instagram)+'/" target="_blank" rel="noopener">@'+esc(t.instagram)+'</a></div>');
+  if (t.whatsapp) partes.push('<div>WhatsApp <a href="https://wa.me/'+t.whatsapp.replace(/\D/g,"")+'" target="_blank" rel="noopener" class="mail">'+esc(t.whatsapp)+'</a></div>');
+  if (!partes.length) partes.push('<div><a href="https://www.google.com/search?q='+encodeURIComponent(t.nombre+" "+(t.comuna||"")+" instagram")+'" target="_blank" rel="noopener">Buscar contacto</a></div>');
+  return partes.join("");
+}
+function vClass(v){ return v === "Sitio web activo" ? "v-web" : v === "Por confirmar" ? "v-conf" : "v-dir"; }
+function renderKpis(){
+  document.getElementById("k-total").textContent = tiendas.length || "–";
+  document.getElementById("k-valid").textContent = tiendas.length ? tiendas.filter(t => t.validacion !== "Por confirmar").length : "–";
+  document.getElementById("k-a").textContent = tiendas.length ? tiendas.filter(t => t.prioridad === "A").length : "–";
+  document.getElementById("k-mail").textContent = tiendas.length ? tiendas.filter(t => t.email).length : "–";
+  document.getElementById("k-soc").textContent = tiendas.length ? tiendas.filter(t => t.instagram || t.whatsapp).length : "–";
+  document.getElementById("k-cli").textContent = tiendas.filter(t => t.estado === "Cliente").length;
+  const oro = PRODUCTOS.reduce((s,p) => s + p.stock * r10(p.pvp*0.7), 0);
+  document.getElementById("k-stock").textContent = clp(oro);
+}
+function renderFunnel(){
+  const total = tiendas.length || 1;
+  document.getElementById("funnel").innerHTML = ESTADOS.map(e => {
+    const c = tiendas.filter(t => (t.estado||"Por contactar") === e).length;
+    return `<div class="stage"><span class="sub">${e}</span><br><b>${c}</b><div class="bar"><i style="width:${c/total*100}%"></i></div></div>`;
+  }).join("");
+}
+function fillFilters(){
+  const reg = document.getElementById("f-reg"), cur = reg.value;
+  const regiones = [...new Set(tiendas.map(t => t.region).filter(Boolean))].sort();
+  reg.innerHTML = '<option value="">Todas las regiones</option>' + regiones.map(r => `<option>${esc(r)}</option>`).join("");
+  reg.value = cur;
+  for (const [id, campo, todos] of [["f-val","validacion","Toda validación"],["f-tipo","tipo","Todo tipo"]]) {
+    const sel = document.getElementById(id), actual = sel.value;
+    const vals = [...new Set(tiendas.map(t => t[campo]).filter(Boolean))].sort();
+    sel.innerHTML = `<option value="">${todos}</option>` + vals.map(v => `<option>${esc(v)}</option>`).join("");
+    sel.value = actual;
+  }
+  const est = document.getElementById("f-est");
+  if (est.options.length === 1) est.innerHTML += ESTADOS.map(e => `<option>${e}</option>`).join("");
+}
+function renderTabla(){
+  const q = document.getElementById("f-q").value.toLowerCase().trim();
+  const fp = document.getElementById("f-prio").value, fr = document.getElementById("f-reg").value, fe = document.getElementById("f-est").value, fv = document.getElementById("f-val").value;
+  const ft = document.getElementById("f-tipo").value, fm = document.getElementById("f-mail").value;
+  const orden = {A:0,B:1,C:2};
+  const rows = tiendas.filter(t => (!fp || t.prioridad===fp) && (!fr || t.region===fr) && (!fe || (t.estado||"Por contactar")===fe) && (!fv || t.validacion===fv) && (!ft || t.tipo===ft) && (!fm || (fm==="competencia" ? t.competencia : fm==="email" ? t.email : fm==="social" ? (t.instagram||t.whatsapp) : !(t.email||t.instagram||t.whatsapp)))
+      && (!q || [t.nombre,t.comuna,t.juegos,t.region].join(" ").toLowerCase().includes(q)))
+    .sort((a,b) => (orden[a.prioridad]-orden[b.prioridad]) || a.nombre.localeCompare(b.nombre));
+  const body = document.getElementById("t-body");
+  if (!tiendas.length) { body.innerHTML = '<tr><td colspan="7" class="empty">Aún no hay tiendas guardadas. Agrega la primera con el formulario de abajo.</td></tr>'; return; }
+  if (!rows.length) { body.innerHTML = '<tr><td colspan="7" class="empty">Ninguna tienda coincide con los filtros.</td></tr>'; return; }
+  body.innerHTML = rows.map(t => {
+    const link = t.web ? `<a href="${esc(t.web)}" target="_blank" rel="noopener">web</a>` : "";
+    const src = t.fuente ? `<a href="${esc(t.fuente)}" target="_blank" rel="noopener">fuente</a>` : "";
+    const est = t.estado || "Por contactar";
+    return `<tr>
+      <td><div class="name">${esc(t.nombre)}${t.competencia?' <span class="pill p-comp" title="'+esc(t.competencia)+'">Competencia · no contactar</span>':''}</div><div class="sub">${esc(t.comuna)}${t.region?" · "+esc(t.region):""}</div><div class="sub">${esc(t.direccion)}</div><div class="sub">${[link,src].filter(Boolean).join(" · ")}</div></td>
+      <td>${esc(t.juegos)}${t.eventos?'<div class="sub">Con torneos</div>':''}</td>
+      <td><span class="pill p-${esc(t.prioridad)}">${esc(t.prioridad)}</span></td>
+      <td><span class="pill ${vClass(t.validacion)}">${esc(t.validacion)}</span></td>
+      <td class="sub">${esc(t.canal)}${contacto(t)}${t.tipo&&t.tipo!=="TCG"?'<div>'+esc(t.tipo)+'</div>':''}</td>
+      <td><select id="e-${esc(t.id)}" class="st-${est.replace(/ /g,'')}" data-id="${esc(t.id)}" ${canWrite?"":"disabled"} aria-label="Estado de ${esc(t.nombre)}">${ESTADOS.map(e=>`<option ${e===est?"selected":""}>${e}</option>`).join("")}</select></td>
+      <td><input class="nota" type="text" id="nt-${esc(t.id)}" data-id="${esc(t.id)}" value="${esc(t.nota)}" placeholder="Contacto, fecha, pedido…" ${canWrite?"":"disabled"}></td></tr>`;
+  }).join("");
+  body.querySelectorAll("select").forEach(s => s.onchange = () => guardar(s.dataset.id, {estado: s.value}));
+  body.querySelectorAll("input.nota").forEach(i => i.onchange = () => guardar(i.dataset.id, {nota: i.value}));
+}
+function renderTodo(){ renderKpis(); renderFunnel(); fillFilters(); renderTabla(); }
+["f-q","f-prio","f-reg","f-est","f-val","f-tipo","f-mail"].forEach(id => document.getElementById(id).addEventListener("input", renderTabla));
+
+async function guardar(id, cambios){
+  if (!db) return;
+  const t = tiendas.find(x => x.id === id) || {id};
+  // Las tiendas de la lista base solo guardan su estado; las agregadas a mano guardan todos sus datos.
+  const doc = baseIds.has(id) ? {id, estado: t.estado || "Por contactar", nota: t.nota || "", ...cambios} : {...t, ...cambios};
+  try { await db.collection("tiendas").doc(id).set({...doc, actualizado: new Date().toISOString()}); statusEl.textContent = "Guardado"; }
+  catch(e){ statusEl.textContent = e.code === "invalid_argument" ? "No tienes permiso para editar esta lista." : "No se pudo guardar. Intenta de nuevo."; if (e.code === "invalid_argument") { canWrite = false; renderTabla(); } }
+}
+document.getElementById("addform").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  if (!db || !canWrite) { statusEl.textContent = "Para agregar tiendas necesitas permiso de edición."; return; }
+  const v = id => document.getElementById(id).value.trim();
+  const nombre = v("n-nombre"); if (!nombre) return;
+  const id = nombre.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-").replace(/^-|-$/g,"") || ("t-"+Date.now());
+  const web = v("n-web");
+  try {
+    await db.collection("tiendas").doc(id).set({id, nombre, comuna:v("n-comuna"), region:v("n-region"), direccion:v("n-dir"), web, juegos:v("n-juegos"),
+      eventos:false, validacion:"Por confirmar", fuente:web, prioridad:v("n-prio"), canal:"Por definir", estado:"Por contactar", nota:"", actualizado:new Date().toISOString()});
+    ev.target.reset(); statusEl.textContent = "Tienda agregada";
+  } catch(e){ statusEl.textContent = e.code === "quota_exceeded" ? "La lista está llena; elimina tiendas descartadas." : "No se pudo agregar la tienda."; }
+});
+
+(async () => {
+  db = await window.claude?.use?.("db");
+  if (!db) { statusEl.textContent = "Base de datos no disponible en esta vista: abre la página en claude.ai con tu cuenta."; renderTodo(); return; }
+  const user = await window.claude.use("user");
+  const can = user ? await user.can("data.write") : null;
+  canWrite = can !== false;
+  db.collection("tiendas").onSnapshot(snap => {
+    estadoDb = Object.fromEntries(snap.docs.map(d => [d.id, d.data()]));
+    statusEl.textContent = canWrite ? "Cambios guardados para todos" : "Solo lectura";
+    mezclar();
+  }, () => { statusEl.textContent = "Se perdió la conexión con la base de datos. Recarga la página."; });
+})();
+
+let base = [], baseIds = new Set(), estadoDb = {};
+function mezclar(){
+  tiendas = base.map(t => {
+    const s = estadoDb[t.id];
+    return s ? {...t, estado: s.estado || "Por contactar", nota: s.nota || "", actualizado: s.actualizado} : t;
+  }).concat(Object.values(estadoDb).filter(d => !baseIds.has(d.id) && d.nombre));
+  renderTodo();
+}
+fetch("tiendas.json").then(r => r.json()).then(lista => {
+  base = lista; baseIds = new Set(lista.map(t => t.id)); mezclar();
+}).catch(() => { statusEl.textContent = "No se pudo cargar la lista de tiendas. Recarga la página."; });
+
+renderTiers(); renderCatalogo(); renderCotizador(); renderGuiones(); renderTodo();
+</script>

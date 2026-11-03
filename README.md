@@ -138,3 +138,7 @@ tspl_backend.py        # genera comandos TSPL (impresoras de etiquetas genérica
 printer_backend.py      # conexión con la impresora (python-escpos / TSPL crudo)
 app.py                   # interfaz gráfica (Tkinter)
 ```
+
+## Licencia
+
+MIT -- ver [LICENSE](LICENSE). Usalo, modificalo y compartilo libremente.

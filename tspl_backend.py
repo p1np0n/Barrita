@@ -38,6 +38,7 @@ LINE_SPACING_DOTS = 4  # espacio extra entre líneas de texto
 MARGIN_MM = 2.0
 BARCODE_HEIGHT_MM = 8.0
 BARCODE_TO_TEXT_GAP_MM = 3.0
+BARCODE_MODULE_DOTS = 2  # el "narrow/wide" que mandamos en el comando BARCODE
 
 
 def mm_to_dots(mm: float, dpi: int) -> int:
@@ -61,6 +62,22 @@ def max_lines_for_height(alto_mm: float, dpi: int) -> int:
     disponible = alto_dots - barcode_dots - margin_dots
     line_h = FONT_HEIGHT_DOTS + LINE_SPACING_DOTS
     return max(1, disponible // line_h)
+
+
+def _code128_width_dots(content: str, module_dots: int = BARCODE_MODULE_DOTS) -> int:
+    """Estima el ancho en puntos de un código CODE128, asumiendo Code Set B
+    (1 módulo de 11 unidades por carácter, que es el caso típico para
+    códigos alfanuméricos como los que usa ML). No es exacto al 100% --
+    Code128 a veces cambia de code-set internamente para ahorrar espacio en
+    tramos puramente numéricos -- pero alcanza para centrar razonablemente
+    bien sin tener que implementar el algoritmo de codificación completo.
+
+    Fórmula: inicio (11 módulos) + 1 módulo de 11 por cada carácter de datos
+    + checksum (11 módulos) + parada (13 módulos).
+    """
+    n = max(1, len(content))
+    modules = 11 * (n + 2) + 13
+    return modules * module_dots
 
 
 def _wrap(text: str, ancho_mm: float, dpi: int, max_lines: int) -> list[str]:
@@ -91,23 +108,62 @@ def _draw_label(
     dpi: int,
     code: str,
     text_lines: list[str],
+    center_h: bool = True,
+    center_v: bool = True,
+    offset_x_mm: float = 0.0,
+    offset_y_mm: float = 0.0,
 ) -> None:
     """Agrega los comandos BARCODE/TEXT de una etiqueta individual, offseteados
     en x0_dots puntos desde el borde izquierdo de la fila (para soportar
-    varias columnas en el mismo ancho de papel)."""
+    varias columnas en el mismo ancho de papel).
+
+    `center_h`/`center_v` centran el bloque código+texto dentro del área útil
+    de la etiqueta (ancho/alto menos los márgenes). `offset_x_mm`/`offset_y_mm`
+    permiten un ajuste fino en milímetros por encima del centrado (o de la
+    posición contra el margen, si el centrado está desactivado), para
+    corregir a mano si el cálculo automático no queda perfecto.
+    """
     margin_dots = mm_to_dots(MARGIN_MM, dpi)
-    barcode_y = margin_dots
+    ancho_dots = mm_to_dots(ancho_mm, dpi)
+    alto_dots = mm_to_dots(alto_mm, dpi)
+    available_w = max(0, ancho_dots - 2 * margin_dots)
+    available_h = max(0, alto_dots - 2 * margin_dots)
+
     barcode_height_dots = mm_to_dots(BARCODE_HEIGHT_MM, dpi)
-    text_y_start = barcode_y + barcode_height_dots + mm_to_dots(BARCODE_TO_TEXT_GAP_MM, dpi)
+    gap_dots = mm_to_dots(BARCODE_TO_TEXT_GAP_MM, dpi)
     line_h = FONT_HEIGHT_DOTS + LINE_SPACING_DOTS
 
-    x = x0_dots + margin_dots
+    offset_x = mm_to_dots(offset_x_mm, dpi)
+    offset_y = mm_to_dots(offset_y_mm, dpi)
+
+    if center_v:
+        content_h = barcode_height_dots + gap_dots + len(text_lines) * line_h
+        start_y = margin_dots + max(0, (available_h - content_h) // 2)
+    else:
+        start_y = margin_dots
+    barcode_y = start_y + offset_y
+    text_y_start = barcode_y + barcode_height_dots + gap_dots
+
+    if center_h:
+        barcode_w = _code128_width_dots(code)
+        barcode_x = x0_dots + margin_dots + max(0, (available_w - barcode_w) // 2)
+    else:
+        barcode_x = x0_dots + margin_dots
+    barcode_x += offset_x
+
     # A diferencia de ESC/POS, TSPL no necesita un prefijo de "code set" para
     # CODE128 -- el firmware elige la codificación internamente.
-    lines.append(f'BARCODE {x},{barcode_y},"128",{barcode_height_dots},1,0,2,2,"{_sanitize(code)}"')
+    lines.append(
+        f'BARCODE {barcode_x},{barcode_y},"128",{barcode_height_dots},1,0,2,2,"{_sanitize(code)}"'
+    )
     y = text_y_start
     for line in text_lines:
-        lines.append(f'TEXT {x},{y},"{FONT}",0,1,1,"{_sanitize(line)}"')
+        if center_h:
+            line_w = len(line) * FONT_WIDTH_DOTS
+            text_x = x0_dots + margin_dots + max(0, (available_w - line_w) // 2) + offset_x
+        else:
+            text_x = x0_dots + margin_dots + offset_x
+        lines.append(f'TEXT {text_x},{y},"{FONT}",0,1,1,"{_sanitize(line)}"')
         y += line_h
 
 
@@ -119,6 +175,10 @@ def build_tspl_batch(
     dpi: int = DEFAULT_DPI,
     columns: int = 1,
     col_gap_mm: float = 0.0,
+    center_h: bool = True,
+    center_v: bool = True,
+    offset_x_mm: float = 0.0,
+    offset_y_mm: float = 0.0,
 ) -> bytes:
     """Arma el trabajo TSPL completo (todas las etiquetas) en un solo buffer.
 
@@ -148,7 +208,19 @@ def build_tspl_batch(
             text_lines = _wrap(g.description, ancho_mm, dpi, max_lines)
             if g.sku:
                 text_lines.append(f"SKU: {g.sku}")
-            _draw_label(lines, i * col_stride_dots, ancho_mm, alto_mm, dpi, g.code, text_lines)
+            _draw_label(
+                lines,
+                i * col_stride_dots,
+                ancho_mm,
+                alto_mm,
+                dpi,
+                g.code,
+                text_lines,
+                center_h=center_h,
+                center_v=center_v,
+                offset_x_mm=offset_x_mm,
+                offset_y_mm=offset_y_mm,
+            )
         lines.append("PRINT 1,1")
 
     payload = "\r\n".join(lines) + "\r\n"
@@ -162,20 +234,32 @@ def build_tspl_test_label(
     dpi: int = DEFAULT_DPI,
     columns: int = 1,
     col_gap_mm: float = 0.0,
+    center_h: bool = True,
+    center_v: bool = True,
+    offset_x_mm: float = 0.0,
+    offset_y_mm: float = 0.0,
 ) -> bytes:
-    """Etiqueta de prueba de solo texto en TSPL (sin código de barras),
-    con una marca por columna para poder verificar la alineación."""
+    """Etiqueta de prueba con código de barras real en TSPL, con una marca
+    por columna para poder verificar alineación y centrado antes de gastar
+    el lote completo."""
     total_ancho_mm = ancho_mm * columns + col_gap_mm * max(0, columns - 1)
-    margin_dots = mm_to_dots(MARGIN_MM, dpi)
     col_stride_dots = mm_to_dots(ancho_mm + col_gap_mm, dpi)
 
     lines = _header_lines(total_ancho_mm, alto_mm, gap_mm) + ["CLS"]
     for i in range(columns):
-        x = i * col_stride_dots + margin_dots
-        lines.append(f'TEXT {x},{margin_dots},"{FONT}",0,1,1,"PRUEBA COL {i + 1}"')
-        lines.append(
-            f'TEXT {x},{margin_dots + FONT_HEIGHT_DOTS + LINE_SPACING_DOTS},'
-            f'"{FONT}",0,1,1,"{ancho_mm:g}x{alto_mm:g}mm {dpi}dpi"'
+        text_lines = [f"PRUEBA COL {i + 1}", f"{ancho_mm:g}x{alto_mm:g}mm {dpi}dpi"]
+        _draw_label(
+            lines,
+            i * col_stride_dots,
+            ancho_mm,
+            alto_mm,
+            dpi,
+            "123456789",
+            text_lines,
+            center_h=center_h,
+            center_v=center_v,
+            offset_x_mm=offset_x_mm,
+            offset_y_mm=offset_y_mm,
         )
     lines.append("PRINT 1,1")
 

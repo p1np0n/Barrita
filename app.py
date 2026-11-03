@@ -20,8 +20,21 @@ import platform
 import queue
 import threading
 import tkinter as tk
+from dataclasses import dataclass
 from tkinter import filedialog, messagebox, simpledialog, ttk
 from typing import Optional
+
+
+@dataclass
+class TsplOptions:
+    gap_mm: float = 2.0
+    dpi: int = 203
+    columns: int = 1
+    col_gap_mm: float = 0.0
+    center_h: bool = True
+    center_v: bool = True
+    offset_x_mm: float = 0.0
+    offset_y_mm: float = 0.0
 
 from printer_backend import (
     PrinterConfig,
@@ -156,6 +169,10 @@ class App(tk.Tk):
         self.dpi_var = tk.StringVar(value="203")
         self.columns_var = tk.StringVar(value="2")
         self.col_gap_var = tk.StringVar(value="3")
+        self.center_h_var = tk.BooleanVar(value=True)
+        self.center_v_var = tk.BooleanVar(value=True)
+        self.offset_x_var = tk.StringVar(value="0")
+        self.offset_y_var = tk.StringVar(value="0")
 
         self._refresh_lang_fields()
 
@@ -247,6 +264,53 @@ class App(tk.Tk):
                 wraplength=820,
                 justify="left",
             ).grid(row=2, column=0, columnspan=5, sticky="w", pady=(2, 0))
+
+            ttk.Checkbutton(
+                self.lang_fields_frame,
+                text="Centrar a lo ancho",
+                variable=self.center_h_var,
+            ).grid(row=3, column=0, sticky="w", pady=(6, 0))
+            ttk.Checkbutton(
+                self.lang_fields_frame,
+                text="Centrar a lo alto",
+                variable=self.center_v_var,
+            ).grid(row=3, column=1, columnspan=2, sticky="w", pady=(6, 0))
+
+            ttk.Label(self.lang_fields_frame, text="Ajuste fino X:").grid(
+                row=4, column=0, sticky="w", pady=(4, 0)
+            )
+            ttk.Spinbox(
+                self.lang_fields_frame,
+                textvariable=self.offset_x_var,
+                from_=-30,
+                to=30,
+                increment=1,
+                width=6,
+            ).grid(row=4, column=1, sticky="w", padx=4, pady=(4, 0))
+            ttk.Label(self.lang_fields_frame, text="mm   Ajuste fino Y:").grid(
+                row=4, column=2, sticky="w", padx=(10, 0), pady=(4, 0)
+            )
+            ttk.Spinbox(
+                self.lang_fields_frame,
+                textvariable=self.offset_y_var,
+                from_=-30,
+                to=30,
+                increment=1,
+                width=6,
+            ).grid(row=4, column=3, sticky="w", padx=4, pady=(4, 0))
+            ttk.Label(self.lang_fields_frame, text="mm").grid(row=4, column=4, sticky="w", pady=(4, 0))
+
+            ttk.Label(
+                self.lang_fields_frame,
+                text=(
+                    "Con el centrado activado, el código de barras (y el texto) se ubican solos en el medio "
+                    "de cada etiqueta. El ajuste fino se suma encima -- usalo para corregir a mano si el "
+                    "centrado automático no queda exacto (positivo = derecha/abajo, negativo = izquierda/arriba)."
+                ),
+                foreground="#666",
+                wraplength=820,
+                justify="left",
+            ).grid(row=5, column=0, columnspan=5, sticky="w", pady=(2, 0))
         elif lang == "escpos":
             ttk.Checkbutton(
                 self.lang_fields_frame,
@@ -439,14 +503,30 @@ class App(tk.Tk):
         except ValueError:
             raise PrinterSetupError(f"El espacio entre columnas '{raw}' no es un número válido (en mm).")
 
+    def _parse_offset(self, var: tk.StringVar, label: str) -> float:
+        raw = var.get().strip().replace(",", ".")
+        try:
+            return float(raw) if raw else 0.0
+        except ValueError:
+            raise PrinterSetupError(f"El {label} '{raw}' no es un número válido (en mm).")
+
+    def _parse_tspl_options(self) -> TsplOptions:
+        return TsplOptions(
+            gap_mm=self._parse_gap(),
+            dpi=self._parse_dpi(),
+            columns=self._parse_columns(),
+            col_gap_mm=self._parse_col_gap(),
+            center_h=self.center_h_var.get(),
+            center_v=self.center_v_var.get(),
+            offset_x_mm=self._parse_offset(self.offset_x_var, "ajuste fino X"),
+            offset_y_mm=self._parse_offset(self.offset_y_var, "ajuste fino Y"),
+        )
+
     def on_print_test(self):
         try:
             ancho_mm, alto_mm = self._parse_ancho_alto()
             lang = self.lang_var.get()
-            gap_mm = self._parse_gap() if lang == "tspl" else 0.0
-            dpi = self._parse_dpi() if lang == "tspl" else 203
-            columns = self._parse_columns() if lang == "tspl" else 1
-            col_gap_mm = self._parse_col_gap() if lang == "tspl" else 0.0
+            tspl_opts = self._parse_tspl_options() if lang == "tspl" else TsplOptions()
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
@@ -454,7 +534,7 @@ class App(tk.Tk):
 
         thread = threading.Thread(
             target=self._print_test_worker,
-            args=(lang, ancho_mm, alto_mm, gap_mm, dpi, columns, col_gap_mm, config),
+            args=(lang, ancho_mm, alto_mm, tspl_opts, config),
             daemon=True,
         )
         thread.start()
@@ -464,15 +544,11 @@ class App(tk.Tk):
         lang: str,
         ancho_mm: float,
         alto_mm: Optional[float],
-        gap_mm: float,
-        dpi: int,
-        columns: int,
-        col_gap_mm: float,
+        tspl_opts: TsplOptions,
         config: PrinterConfig,
     ):
-        self.log_queue.put(
-            f"Imprimiendo etiqueta de prueba en {lang.upper()} (solo texto, sin código de barras)…"
-        )
+        detalle = "con código de barras de prueba" if lang == "tspl" else "solo texto, sin código de barras"
+        self.log_queue.put(f"Imprimiendo etiqueta de prueba en {lang.upper()} ({detalle})…")
         try:
             printer = open_printer(config)
         except PrinterSetupError as exc:
@@ -484,10 +560,14 @@ class App(tk.Tk):
                     printer,
                     ancho_mm=ancho_mm,
                     alto_mm=alto_mm,
-                    gap_mm=gap_mm,
-                    dpi=dpi,
-                    columns=columns,
-                    col_gap_mm=col_gap_mm,
+                    gap_mm=tspl_opts.gap_mm,
+                    dpi=tspl_opts.dpi,
+                    columns=tspl_opts.columns,
+                    col_gap_mm=tspl_opts.col_gap_mm,
+                    center_h=tspl_opts.center_h,
+                    center_v=tspl_opts.center_v,
+                    offset_x_mm=tspl_opts.offset_x_mm,
+                    offset_y_mm=tspl_opts.offset_y_mm,
                 )
             else:
                 print_test_label(printer, ancho_mm=ancho_mm, cut=self.cut_var.get())
@@ -515,10 +595,7 @@ class App(tk.Tk):
         try:
             ancho_mm, alto_mm = self._parse_ancho_alto()
             lang = self.lang_var.get()
-            gap_mm = self._parse_gap() if lang == "tspl" else 0.0
-            dpi = self._parse_dpi() if lang == "tspl" else 203
-            columns = self._parse_columns() if lang == "tspl" else 1
-            col_gap_mm = self._parse_col_gap() if lang == "tspl" else 0.0
+            tspl_opts = self._parse_tspl_options() if lang == "tspl" else TsplOptions()
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
@@ -527,7 +604,7 @@ class App(tk.Tk):
         cut = self.cut_var.get()
         thread = threading.Thread(
             target=self._print_worker,
-            args=(groups, lang, ancho_mm, alto_mm, gap_mm, dpi, columns, col_gap_mm, cut, config),
+            args=(groups, lang, ancho_mm, alto_mm, tspl_opts, cut, config),
             daemon=True,
         )
         thread.start()
@@ -538,10 +615,7 @@ class App(tk.Tk):
         lang: str,
         ancho_mm: float,
         alto_mm: Optional[float],
-        gap_mm: float,
-        dpi: int,
-        columns: int,
-        col_gap_mm: float,
+        tspl_opts: TsplOptions,
         cut: bool,
         config: PrinterConfig,
     ):
@@ -558,7 +632,18 @@ class App(tk.Tk):
         try:
             if lang == "tspl":
                 print_batch_tspl(
-                    printer, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm
+                    printer,
+                    groups,
+                    ancho_mm,
+                    alto_mm,
+                    gap_mm=tspl_opts.gap_mm,
+                    dpi=tspl_opts.dpi,
+                    columns=tspl_opts.columns,
+                    col_gap_mm=tspl_opts.col_gap_mm,
+                    center_h=tspl_opts.center_h,
+                    center_v=tspl_opts.center_v,
+                    offset_x_mm=tspl_opts.offset_x_mm,
+                    offset_y_mm=tspl_opts.offset_y_mm,
                 )
                 self.log_queue.put(f"  OK: {len(groups)} producto(s) mandados en un solo trabajo TSPL.")
             else:

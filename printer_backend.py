@@ -250,10 +250,24 @@ def print_batch_tspl(
     dpi: int = 203,
     columns: int = 1,
     col_gap_mm: float = 0.0,
+    center_h: bool = True,
+    center_v: bool = True,
+    offset_x_mm: float = 0.0,
+    offset_y_mm: float = 0.0,
 ) -> None:
     printer._raw(
         build_tspl_batch(
-            groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm
+            groups,
+            ancho_mm,
+            alto_mm,
+            gap_mm=gap_mm,
+            dpi=dpi,
+            columns=columns,
+            col_gap_mm=col_gap_mm,
+            center_h=center_h,
+            center_v=center_v,
+            offset_x_mm=offset_x_mm,
+            offset_y_mm=offset_y_mm,
         )
     )
 
@@ -266,10 +280,23 @@ def print_test_label_tspl(
     dpi: int = 203,
     columns: int = 1,
     col_gap_mm: float = 0.0,
+    center_h: bool = True,
+    center_v: bool = True,
+    offset_x_mm: float = 0.0,
+    offset_y_mm: float = 0.0,
 ) -> None:
     printer._raw(
         build_tspl_test_label(
-            ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm
+            ancho_mm,
+            alto_mm,
+            gap_mm=gap_mm,
+            dpi=dpi,
+            columns=columns,
+            col_gap_mm=col_gap_mm,
+            center_h=center_h,
+            center_v=center_v,
+            offset_x_mm=offset_x_mm,
+            offset_y_mm=offset_y_mm,
         )
     )
 
@@ -282,11 +309,28 @@ def render_batch_to_dummy_bytes_tspl(
     dpi: int = 203,
     columns: int = 1,
     col_gap_mm: float = 0.0,
+    center_h: bool = True,
+    center_v: bool = True,
+    offset_x_mm: float = 0.0,
+    offset_y_mm: float = 0.0,
 ) -> bytes:
     """Genera los bytes TSPL del trabajo completo sin enviarlos a ninguna impresora."""
     _require_escpos()
     from escpos.printer import Dummy
 
     dummy = Dummy()
-    print_batch_tspl(dummy, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm)
+    print_batch_tspl(
+        dummy,
+        groups,
+        ancho_mm,
+        alto_mm,
+        gap_mm=gap_mm,
+        dpi=dpi,
+        columns=columns,
+        col_gap_mm=col_gap_mm,
+        center_h=center_h,
+        center_v=center_v,
+        offset_x_mm=offset_x_mm,
+        offset_y_mm=offset_y_mm,
+    )
     return dummy.output

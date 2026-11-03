@@ -31,12 +31,18 @@ from dataclasses import dataclass, field
 from collections import OrderedDict
 
 # Patrón de una "columna" de etiqueta completa, en el orden fijo en que
-# Mercado Libre siempre las genera.
+# Mercado Libre siempre las genera. Los parámetros numéricos de ^FB (ancho
+# del bloque, cantidad de líneas) y la posición Y de la línea de SKU varían
+# según la plantilla/versión de etiqueta que use cada exportación -- no hay
+# que asumir valores fijos ahí, solo la estructura. La línea de SKU se
+# distingue de las dos líneas "reservadas" que la preceden (que también son
+# ^FD...^FS vacíos) en que esas sí tienen un bloque ^FB antes de ^FH y la de
+# SKU no.
 _LABEL_UNIT_RE = re.compile(
     r"""
     \^BCN,54,N,N\^FD(?P<code>[^\^]*)\^FS .*?
-    \^FB300,2,2,L\^FH\^FD(?P<desc>[^\^]*)\^FS .*?
-    \^FO\d+,172\^A0N,18,18\^FH\^FD(?P<sku>.*?)\^FS
+    \^FB\d+,\d+,\d+,L\^FH\^FD(?P<desc>[^\^]*)\^FS .*?
+    \^FO\d+,\d+\^A0N,18,18\^FH\^FD(?P<sku>.*?)\^FS
     """,
     re.VERBOSE | re.DOTALL,
 )

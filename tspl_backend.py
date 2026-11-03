@@ -83,58 +83,101 @@ def _header_lines(ancho_mm: float, alto_mm: float, gap_mm: float) -> list[str]:
     ]
 
 
+def _draw_label(
+    lines: list[str],
+    x0_dots: int,
+    ancho_mm: float,
+    alto_mm: float,
+    dpi: int,
+    code: str,
+    text_lines: list[str],
+) -> None:
+    """Agrega los comandos BARCODE/TEXT de una etiqueta individual, offseteados
+    en x0_dots puntos desde el borde izquierdo de la fila (para soportar
+    varias columnas en el mismo ancho de papel)."""
+    margin_dots = mm_to_dots(MARGIN_MM, dpi)
+    barcode_y = margin_dots
+    barcode_height_dots = mm_to_dots(BARCODE_HEIGHT_MM, dpi)
+    text_y_start = barcode_y + barcode_height_dots + mm_to_dots(BARCODE_TO_TEXT_GAP_MM, dpi)
+    line_h = FONT_HEIGHT_DOTS + LINE_SPACING_DOTS
+
+    x = x0_dots + margin_dots
+    # A diferencia de ESC/POS, TSPL no necesita un prefijo de "code set" para
+    # CODE128 -- el firmware elige la codificación internamente.
+    lines.append(f'BARCODE {x},{barcode_y},"128",{barcode_height_dots},1,0,2,2,"{_sanitize(code)}"')
+    y = text_y_start
+    for line in text_lines:
+        lines.append(f'TEXT {x},{y},"{FONT}",0,1,1,"{_sanitize(line)}"')
+        y += line_h
+
+
 def build_tspl_batch(
     groups: list[LabelGroup],
     ancho_mm: float,
     alto_mm: float,
     gap_mm: float = 2.0,
     dpi: int = DEFAULT_DPI,
+    columns: int = 1,
+    col_gap_mm: float = 0.0,
 ) -> bytes:
-    """Arma el trabajo TSPL completo (todas las etiquetas) en un solo buffer."""
-    lines: list[str] = _header_lines(ancho_mm, alto_mm, gap_mm)
+    """Arma el trabajo TSPL completo (todas las etiquetas) en un solo buffer.
 
-    margin_dots = mm_to_dots(MARGIN_MM, dpi)
-    barcode_y = margin_dots
-    barcode_height_dots = mm_to_dots(BARCODE_HEIGHT_MM, dpi)
-    text_y_start = barcode_y + barcode_height_dots + mm_to_dots(BARCODE_TO_TEXT_GAP_MM, dpi)
-    line_h = FONT_HEIGHT_DOTS + LINE_SPACING_DOTS
+    `columns` es la cantidad de etiquetas que hay una al lado de la otra en
+    el mismo ancho de papel (ej. 2, en un rollo de etiquetas de 50mm de
+    ancho pegadas de a pares). `ancho_mm`/`alto_mm` siguen siendo el tamaño
+    de UNA etiqueta individual, no el ancho total del rollo -- el ancho
+    total para el comando SIZE se calcula solo a partir de columns.
+    """
+    total_ancho_mm = ancho_mm * columns + col_gap_mm * max(0, columns - 1)
+    lines: list[str] = _header_lines(total_ancho_mm, alto_mm, gap_mm)
+
     max_lines = max_lines_for_height(alto_mm, dpi)
+    col_stride_dots = mm_to_dots(ancho_mm + col_gap_mm, dpi)
 
+    # Aplanamos a una secuencia de etiquetas físicas individuales, y las
+    # empaquetamos de a `columns` por fila (misma lógica que usa Mercado
+    # Libre para las 2 columnas de su propio ZPL).
+    flat: list[LabelGroup] = []
     for g in groups:
-        if g.quantity <= 0:
-            continue
-        text_lines = _wrap(g.description, ancho_mm, dpi, max_lines)
-        if g.sku:
-            text_lines.append(f"SKU: {g.sku}")
+        flat.extend([g] * max(0, g.quantity))
 
+    for row_start in range(0, len(flat), columns):
+        row = flat[row_start : row_start + columns]
         lines.append("CLS")
-        # A diferencia de ESC/POS, TSPL no necesita un prefijo de "code set"
-        # para CODE128 -- el firmware elige la codificación internamente.
-        lines.append(
-            f'BARCODE {margin_dots},{barcode_y},"128",{barcode_height_dots},1,0,2,2,'
-            f'"{_sanitize(g.code)}"'
-        )
-        y = text_y_start
-        for line in text_lines:
-            lines.append(f'TEXT {margin_dots},{y},"{FONT}",0,1,1,"{_sanitize(line)}"')
-            y += line_h
-        lines.append(f"PRINT {g.quantity},1")
+        for i, g in enumerate(row):
+            text_lines = _wrap(g.description, ancho_mm, dpi, max_lines)
+            if g.sku:
+                text_lines.append(f"SKU: {g.sku}")
+            _draw_label(lines, i * col_stride_dots, ancho_mm, alto_mm, dpi, g.code, text_lines)
+        lines.append("PRINT 1,1")
 
     payload = "\r\n".join(lines) + "\r\n"
     return payload.encode("cp1252", errors="replace")
 
 
 def build_tspl_test_label(
-    ancho_mm: float, alto_mm: float, gap_mm: float = 2.0, dpi: int = DEFAULT_DPI
+    ancho_mm: float,
+    alto_mm: float,
+    gap_mm: float = 2.0,
+    dpi: int = DEFAULT_DPI,
+    columns: int = 1,
+    col_gap_mm: float = 0.0,
 ) -> bytes:
-    """Etiqueta de prueba de solo texto en TSPL (sin código de barras)."""
+    """Etiqueta de prueba de solo texto en TSPL (sin código de barras),
+    con una marca por columna para poder verificar la alineación."""
+    total_ancho_mm = ancho_mm * columns + col_gap_mm * max(0, columns - 1)
     margin_dots = mm_to_dots(MARGIN_MM, dpi)
-    lines = _header_lines(ancho_mm, alto_mm, gap_mm) + [
-        "CLS",
-        f'TEXT {margin_dots},{margin_dots},"{FONT}",0,1,1,"PRUEBA TSPL"',
-        f'TEXT {margin_dots},{margin_dots + FONT_HEIGHT_DOTS + LINE_SPACING_DOTS},'
-        f'"{FONT}",0,1,1,"{ancho_mm:g}x{alto_mm:g}mm {dpi}dpi gap{gap_mm:g}mm"',
-        "PRINT 1,1",
-    ]
+    col_stride_dots = mm_to_dots(ancho_mm + col_gap_mm, dpi)
+
+    lines = _header_lines(total_ancho_mm, alto_mm, gap_mm) + ["CLS"]
+    for i in range(columns):
+        x = i * col_stride_dots + margin_dots
+        lines.append(f'TEXT {x},{margin_dots},"{FONT}",0,1,1,"PRUEBA COL {i + 1}"')
+        lines.append(
+            f'TEXT {x},{margin_dots + FONT_HEIGHT_DOTS + LINE_SPACING_DOTS},'
+            f'"{FONT}",0,1,1,"{ancho_mm:g}x{alto_mm:g}mm {dpi}dpi"'
+        )
+    lines.append("PRINT 1,1")
+
     payload = "\r\n".join(lines) + "\r\n"
     return payload.encode("cp1252", errors="replace")

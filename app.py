@@ -154,6 +154,8 @@ class App(tk.Tk):
 
         self.gap_var = tk.StringVar(value="2")
         self.dpi_var = tk.StringVar(value="203")
+        self.columns_var = tk.StringVar(value="2")
+        self.col_gap_var = tk.StringVar(value="3")
 
         self._refresh_lang_fields()
 
@@ -220,11 +222,31 @@ class App(tk.Tk):
             ttk.Combobox(
                 self.lang_fields_frame, textvariable=self.dpi_var, values=["203", "300"], width=6, state="readonly"
             ).grid(row=0, column=3, sticky="w", padx=4)
+
+            ttk.Label(self.lang_fields_frame, text="Columnas (etiquetas una al lado de otra):").grid(
+                row=1, column=0, sticky="w", pady=(4, 0)
+            )
+            ttk.Combobox(
+                self.lang_fields_frame, textvariable=self.columns_var, values=["1", "2", "3", "4"], width=6, state="readonly"
+            ).grid(row=1, column=1, sticky="w", padx=4, pady=(4, 0))
+            ttk.Label(self.lang_fields_frame, text="mm entre columnas:").grid(
+                row=1, column=2, sticky="w", padx=(10, 0), pady=(4, 0)
+            )
+            ttk.Combobox(
+                self.lang_fields_frame, textvariable=self.col_gap_var, values=["0", "2", "3", "4"], width=6
+            ).grid(row=1, column=3, sticky="w", padx=4, pady=(4, 0))
+
             ttk.Label(
                 self.lang_fields_frame,
-                text="El gap es el espacio entre una etiqueta y la siguiente (normalmente 2-3mm). 203dpi es lo más común.",
+                text=(
+                    "El gap es el espacio entre una fila de etiquetas y la siguiente (normalmente 2-3mm). "
+                    "203dpi es lo más común. Si tu rollo tiene varias etiquetas pegadas una al lado de la "
+                    "otra (no una abajo de la otra), poné esa cantidad en \"Columnas\"."
+                ),
                 foreground="#666",
-            ).grid(row=1, column=0, columnspan=5, sticky="w", pady=(2, 0))
+                wraplength=820,
+                justify="left",
+            ).grid(row=2, column=0, columnspan=5, sticky="w", pady=(2, 0))
         elif lang == "escpos":
             ttk.Checkbutton(
                 self.lang_fields_frame,
@@ -401,12 +423,30 @@ class App(tk.Tk):
         except ValueError:
             raise PrinterSetupError(f"El DPI '{self.dpi_var.get()}' no es un número válido.")
 
+    def _parse_columns(self) -> int:
+        try:
+            n = int(self.columns_var.get())
+        except ValueError:
+            raise PrinterSetupError(f"Las columnas '{self.columns_var.get()}' no son un número válido.")
+        if n < 1:
+            raise PrinterSetupError("Las columnas tienen que ser 1 o más.")
+        return n
+
+    def _parse_col_gap(self) -> float:
+        raw = self.col_gap_var.get().strip().replace(",", ".")
+        try:
+            return float(raw) if raw else 0.0
+        except ValueError:
+            raise PrinterSetupError(f"El espacio entre columnas '{raw}' no es un número válido (en mm).")
+
     def on_print_test(self):
         try:
             ancho_mm, alto_mm = self._parse_ancho_alto()
             lang = self.lang_var.get()
             gap_mm = self._parse_gap() if lang == "tspl" else 0.0
             dpi = self._parse_dpi() if lang == "tspl" else 203
+            columns = self._parse_columns() if lang == "tspl" else 1
+            col_gap_mm = self._parse_col_gap() if lang == "tspl" else 0.0
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
@@ -414,7 +454,7 @@ class App(tk.Tk):
 
         thread = threading.Thread(
             target=self._print_test_worker,
-            args=(lang, ancho_mm, alto_mm, gap_mm, dpi, config),
+            args=(lang, ancho_mm, alto_mm, gap_mm, dpi, columns, col_gap_mm, config),
             daemon=True,
         )
         thread.start()
@@ -426,6 +466,8 @@ class App(tk.Tk):
         alto_mm: Optional[float],
         gap_mm: float,
         dpi: int,
+        columns: int,
+        col_gap_mm: float,
         config: PrinterConfig,
     ):
         self.log_queue.put(
@@ -438,7 +480,15 @@ class App(tk.Tk):
             return
         try:
             if lang == "tspl":
-                print_test_label_tspl(printer, ancho_mm=ancho_mm, alto_mm=alto_mm, gap_mm=gap_mm, dpi=dpi)
+                print_test_label_tspl(
+                    printer,
+                    ancho_mm=ancho_mm,
+                    alto_mm=alto_mm,
+                    gap_mm=gap_mm,
+                    dpi=dpi,
+                    columns=columns,
+                    col_gap_mm=col_gap_mm,
+                )
             else:
                 print_test_label(printer, ancho_mm=ancho_mm, cut=self.cut_var.get())
             if config.backend == "dummy":
@@ -467,6 +517,8 @@ class App(tk.Tk):
             lang = self.lang_var.get()
             gap_mm = self._parse_gap() if lang == "tspl" else 0.0
             dpi = self._parse_dpi() if lang == "tspl" else 203
+            columns = self._parse_columns() if lang == "tspl" else 1
+            col_gap_mm = self._parse_col_gap() if lang == "tspl" else 0.0
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
@@ -475,7 +527,7 @@ class App(tk.Tk):
         cut = self.cut_var.get()
         thread = threading.Thread(
             target=self._print_worker,
-            args=(groups, lang, ancho_mm, alto_mm, gap_mm, dpi, cut, config),
+            args=(groups, lang, ancho_mm, alto_mm, gap_mm, dpi, columns, col_gap_mm, cut, config),
             daemon=True,
         )
         thread.start()
@@ -488,6 +540,8 @@ class App(tk.Tk):
         alto_mm: Optional[float],
         gap_mm: float,
         dpi: int,
+        columns: int,
+        col_gap_mm: float,
         cut: bool,
         config: PrinterConfig,
     ):
@@ -503,7 +557,9 @@ class App(tk.Tk):
         )
         try:
             if lang == "tspl":
-                print_batch_tspl(printer, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi)
+                print_batch_tspl(
+                    printer, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm
+                )
                 self.log_queue.put(f"  OK: {len(groups)} producto(s) mandados en un solo trabajo TSPL.")
             else:
                 done = 0

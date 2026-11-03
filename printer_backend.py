@@ -248,14 +248,30 @@ def print_batch_tspl(
     alto_mm: float,
     gap_mm: float = 2.0,
     dpi: int = 203,
+    columns: int = 1,
+    col_gap_mm: float = 0.0,
 ) -> None:
-    printer._raw(build_tspl_batch(groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi))
+    printer._raw(
+        build_tspl_batch(
+            groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm
+        )
+    )
 
 
 def print_test_label_tspl(
-    printer, ancho_mm: float, alto_mm: float, gap_mm: float = 2.0, dpi: int = 203
+    printer,
+    ancho_mm: float,
+    alto_mm: float,
+    gap_mm: float = 2.0,
+    dpi: int = 203,
+    columns: int = 1,
+    col_gap_mm: float = 0.0,
 ) -> None:
-    printer._raw(build_tspl_test_label(ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi))
+    printer._raw(
+        build_tspl_test_label(
+            ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm
+        )
+    )
 
 
 def render_batch_to_dummy_bytes_tspl(
@@ -264,11 +280,13 @@ def render_batch_to_dummy_bytes_tspl(
     alto_mm: float,
     gap_mm: float = 2.0,
     dpi: int = 203,
+    columns: int = 1,
+    col_gap_mm: float = 0.0,
 ) -> bytes:
     """Genera los bytes TSPL del trabajo completo sin enviarlos a ninguna impresora."""
     _require_escpos()
     from escpos.printer import Dummy
 
     dummy = Dummy()
-    print_batch_tspl(dummy, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi)
+    print_batch_tspl(dummy, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi, columns=columns, col_gap_mm=col_gap_mm)
     return dummy.output

@@ -27,6 +27,7 @@ from dataclasses import dataclass
 from typing import Optional
 
 from label_render import build_label_text_block
+from tspl_backend import build_tspl_batch, build_tspl_test_label
 from zpl_parser import LabelGroup
 
 
@@ -224,4 +225,50 @@ def render_batch_to_dummy_bytes(
 
     dummy = Dummy()
     print_batch(dummy, groups, ancho_mm, alto_mm=alto_mm, cut=cut, barcode_height=barcode_height)
+    return dummy.output
+
+
+# --------------------------------------------------------------------- TSPL
+#
+# Muchas impresoras térmicas de etiquetas "genéricas" (con sensor de gap,
+# traen su propio programa de diseño tipo "Label") no hablan ESC/POS -- habla
+# TSPL. Reutilizamos el mismo objeto de conexión que abre `open_printer()`
+# (Win32Raw / Usb / File / Dummy), pero en vez de llamar a sus métodos de
+# formato ESC/POS (`text()`, `barcode()`, `cut()`, que no tienen sentido acá),
+# escribimos directamente los bytes TSPL con `_raw()` -- el mismo método
+# interno que esas funciones usan por detrás para mandar bytes al dispositivo.
+# `_raw()` abre la conexión sola la primera vez que se usa (no hace falta
+# llamar a `open()` antes), igual que con los métodos ESC/POS.
+
+
+def print_batch_tspl(
+    printer,
+    groups: list[LabelGroup],
+    ancho_mm: float,
+    alto_mm: float,
+    gap_mm: float = 2.0,
+    dpi: int = 203,
+) -> None:
+    printer._raw(build_tspl_batch(groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi))
+
+
+def print_test_label_tspl(
+    printer, ancho_mm: float, alto_mm: float, gap_mm: float = 2.0, dpi: int = 203
+) -> None:
+    printer._raw(build_tspl_test_label(ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi))
+
+
+def render_batch_to_dummy_bytes_tspl(
+    groups: list[LabelGroup],
+    ancho_mm: float,
+    alto_mm: float,
+    gap_mm: float = 2.0,
+    dpi: int = 203,
+) -> bytes:
+    """Genera los bytes TSPL del trabajo completo sin enviarlos a ninguna impresora."""
+    _require_escpos()
+    from escpos.printer import Dummy
+
+    dummy = Dummy()
+    print_batch_tspl(dummy, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi)
     return dummy.output

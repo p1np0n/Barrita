@@ -29,7 +29,9 @@ from printer_backend import (
     list_windows_printers,
     open_printer,
     print_group,
+    print_batch_tspl,
     print_test_label,
+    print_test_label_tspl,
 )
 from zpl_parser import LabelGroup, group_labels, parse_zpl_file
 
@@ -38,6 +40,11 @@ BACKEND_LABELS = {
     "usb": "USB directo (Vendor/Product ID)",
     "file": "Dispositivo Linux (/dev/usb/lp0)",
     "dummy": "Prueba: guardar en archivo .bin (sin imprimir)",
+}
+
+LANG_LABELS = {
+    "tspl": "TSPL (etiquetas con gap, TSC y clones genéricos)",
+    "escpos": "ESC/POS (tickets/recibos, o impresoras de etiquetas compatibles)",
 }
 
 
@@ -116,13 +123,41 @@ class App(tk.Tk):
         hint_size.grid(row=1, column=0, columnspan=5, sticky="w", pady=(2, 0))
 
         self.cut_var = tk.BooleanVar(value=True)
-        ttk.Checkbutton(
-            cfg,
-            text="Cortar automáticamente después de cada etiqueta (desmarcá si tu impresora no tiene cuchilla)",
-            variable=self.cut_var,
-        ).grid(row=2, column=0, columnspan=5, sticky="w", pady=(4, 0))
 
-        ttk.Label(cfg, text="Conexión:").grid(row=3, column=0, sticky="w", pady=(6, 0))
+        ttk.Label(cfg, text="Lenguaje de impresora:").grid(row=2, column=0, sticky="w", pady=(6, 0))
+        self.lang_var = tk.StringVar(value="tspl")
+        lang_combo = ttk.Combobox(
+            cfg,
+            textvariable=self.lang_var,
+            values=list(LANG_LABELS.keys()),
+            state="readonly",
+            width=10,
+        )
+        lang_combo.grid(row=2, column=1, sticky="w", padx=4, pady=(6, 0))
+        lang_combo.bind("<<ComboboxSelected>>", lambda e: self._refresh_lang_fields())
+        self.lang_desc = ttk.Label(cfg, text=LANG_LABELS["tspl"], foreground="#666")
+        self.lang_desc.grid(row=2, column=2, columnspan=3, sticky="w", pady=(6, 0))
+
+        hint_lang = ttk.Label(
+            cfg,
+            text=(
+                "Si tu impresora trae su propio programa de diseño de etiquetas (uno llamado "
+                "\"Label\", por ejemplo) probablemente hable TSPL, no ESC/POS."
+            ),
+            foreground="#666",
+        )
+        hint_lang.grid(row=3, column=0, columnspan=5, sticky="w")
+
+        # Campos específicos por lenguaje (se muestran/ocultan dinámicamente)
+        self.lang_fields_frame = ttk.Frame(cfg)
+        self.lang_fields_frame.grid(row=4, column=0, columnspan=5, sticky="we", pady=(4, 0))
+
+        self.gap_var = tk.StringVar(value="2")
+        self.dpi_var = tk.StringVar(value="203")
+
+        self._refresh_lang_fields()
+
+        ttk.Label(cfg, text="Conexión:").grid(row=5, column=0, sticky="w", pady=(6, 0))
         default_backend = "win32" if platform.system() == "Windows" else "dummy"
         self.backend_var = tk.StringVar(value=default_backend)
         backend_combo = ttk.Combobox(
@@ -132,15 +167,15 @@ class App(tk.Tk):
             state="readonly",
             width=12,
         )
-        backend_combo.grid(row=3, column=1, sticky="w", padx=4, pady=(6, 0))
+        backend_combo.grid(row=5, column=1, sticky="w", padx=4, pady=(6, 0))
         backend_combo.bind("<<ComboboxSelected>>", lambda e: self._refresh_backend_fields())
 
         self.backend_desc = ttk.Label(cfg, text=BACKEND_LABELS[default_backend], foreground="#666")
-        self.backend_desc.grid(row=3, column=2, columnspan=3, sticky="w", pady=(6, 0))
+        self.backend_desc.grid(row=5, column=2, columnspan=3, sticky="w", pady=(6, 0))
 
         # Campos específicos por backend (se muestran/ocultan dinámicamente)
         self.backend_fields_frame = ttk.Frame(cfg)
-        self.backend_fields_frame.grid(row=4, column=0, columnspan=5, sticky="we", pady=(6, 0))
+        self.backend_fields_frame.grid(row=6, column=0, columnspan=5, sticky="we", pady=(6, 0))
 
         self.win32_printer_var = tk.StringVar()
         self.usb_vendor_var = tk.StringVar(value="0x0000")
@@ -165,6 +200,37 @@ class App(tk.Tk):
         # --- log -------------------------------------------------------------------
         self.log_text = tk.Text(self, height=8, state="disabled", bg="#111", fg="#0f0")
         self.log_text.pack(fill="both", padx=8, pady=(0, 8))
+
+    def _refresh_lang_fields(self):
+        for w in self.lang_fields_frame.winfo_children():
+            w.destroy()
+        lang = self.lang_var.get()
+        self.lang_desc.config(text=LANG_LABELS.get(lang, ""))
+
+        if lang == "tspl":
+            ttk.Label(self.lang_fields_frame, text="Separación entre etiquetas (gap):").grid(
+                row=0, column=0, sticky="w"
+            )
+            ttk.Combobox(
+                self.lang_fields_frame, textvariable=self.gap_var, values=["0", "2", "3", "4", "5"], width=6
+            ).grid(row=0, column=1, sticky="w", padx=4)
+            ttk.Label(self.lang_fields_frame, text="mm   DPI de la impresora:").grid(
+                row=0, column=2, sticky="w", padx=(10, 0)
+            )
+            ttk.Combobox(
+                self.lang_fields_frame, textvariable=self.dpi_var, values=["203", "300"], width=6, state="readonly"
+            ).grid(row=0, column=3, sticky="w", padx=4)
+            ttk.Label(
+                self.lang_fields_frame,
+                text="El gap es el espacio entre una etiqueta y la siguiente (normalmente 2-3mm). 203dpi es lo más común.",
+                foreground="#666",
+            ).grid(row=1, column=0, columnspan=5, sticky="w", pady=(2, 0))
+        elif lang == "escpos":
+            ttk.Checkbutton(
+                self.lang_fields_frame,
+                text="Cortar automáticamente después de cada etiqueta (desmarcá si tu impresora no tiene cuchilla)",
+                variable=self.cut_var,
+            ).grid(row=0, column=0, columnspan=5, sticky="w")
 
     def _refresh_backend_fields(self):
         for w in self.backend_fields_frame.winfo_children():
@@ -315,30 +381,66 @@ class App(tk.Tk):
                 alto_mm = float(alto_raw)
             except ValueError:
                 raise PrinterSetupError(f"El alto de etiqueta '{alto_raw}' no es un número válido (en mm).")
+        if self.lang_var.get() == "tspl" and alto_mm is None:
+            raise PrinterSetupError(
+                "Con TSPL hace falta especificar el alto de etiqueta (mm) -- el comando SIZE "
+                "necesita ancho y alto para calibrar el sensor de separación entre etiquetas."
+            )
         return ancho_mm, alto_mm
+
+    def _parse_gap(self) -> float:
+        gap_raw = self.gap_var.get().strip().replace(",", ".")
+        try:
+            return float(gap_raw) if gap_raw else 0.0
+        except ValueError:
+            raise PrinterSetupError(f"El gap '{gap_raw}' no es un número válido (en mm).")
+
+    def _parse_dpi(self) -> int:
+        try:
+            return int(self.dpi_var.get())
+        except ValueError:
+            raise PrinterSetupError(f"El DPI '{self.dpi_var.get()}' no es un número válido.")
 
     def on_print_test(self):
         try:
-            ancho_mm, _alto_mm = self._parse_ancho_alto()
+            ancho_mm, alto_mm = self._parse_ancho_alto()
+            lang = self.lang_var.get()
+            gap_mm = self._parse_gap() if lang == "tspl" else 0.0
+            dpi = self._parse_dpi() if lang == "tspl" else 203
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
             return
 
         thread = threading.Thread(
-            target=self._print_test_worker, args=(ancho_mm, config), daemon=True
+            target=self._print_test_worker,
+            args=(lang, ancho_mm, alto_mm, gap_mm, dpi, config),
+            daemon=True,
         )
         thread.start()
 
-    def _print_test_worker(self, ancho_mm: float, config: PrinterConfig):
-        self.log_queue.put("Imprimiendo etiqueta de prueba (solo texto, sin código de barras)…")
+    def _print_test_worker(
+        self,
+        lang: str,
+        ancho_mm: float,
+        alto_mm: Optional[float],
+        gap_mm: float,
+        dpi: int,
+        config: PrinterConfig,
+    ):
+        self.log_queue.put(
+            f"Imprimiendo etiqueta de prueba en {lang.upper()} (solo texto, sin código de barras)…"
+        )
         try:
             printer = open_printer(config)
         except PrinterSetupError as exc:
             self.log_queue.put(f"ERROR: {exc}")
             return
         try:
-            print_test_label(printer, ancho_mm=ancho_mm, cut=self.cut_var.get())
+            if lang == "tspl":
+                print_test_label_tspl(printer, ancho_mm=ancho_mm, alto_mm=alto_mm, gap_mm=gap_mm, dpi=dpi)
+            else:
+                print_test_label(printer, ancho_mm=ancho_mm, cut=self.cut_var.get())
             if config.backend == "dummy":
                 data = getattr(printer, "output", b"")
                 path = config.dummy_output_path or "etiquetas_escpos.bin"
@@ -346,8 +448,8 @@ class App(tk.Tk):
                     f.write(data)
                 self.log_queue.put(f"Guardado en {path} ({len(data)} bytes). No se envió a ninguna impresora.")
             self.log_queue.put(
-                "Listo. Si no salió nada de la impresora, el problema es de conexión/driver "
-                "(probá otro backend, o desmarcá 'Cortar automáticamente' si tu impresora no tiene cuchilla)."
+                "Listo. Si no salió nada de la impresora, probá el otro lenguaje (TSPL/ESC-POS) "
+                "o el otro tipo de conexión."
             )
         except Exception as exc:
             self.log_queue.put(f"ERROR durante la impresión de prueba: {exc}")
@@ -362,6 +464,9 @@ class App(tk.Tk):
     def _print_groups(self, groups: list[LabelGroup]):
         try:
             ancho_mm, alto_mm = self._parse_ancho_alto()
+            lang = self.lang_var.get()
+            gap_mm = self._parse_gap() if lang == "tspl" else 0.0
+            dpi = self._parse_dpi() if lang == "tspl" else 203
             config = self._build_printer_config()
         except PrinterSetupError as exc:
             messagebox.showerror("Configuración inválida", str(exc))
@@ -369,15 +474,20 @@ class App(tk.Tk):
 
         cut = self.cut_var.get()
         thread = threading.Thread(
-            target=self._print_worker, args=(groups, ancho_mm, alto_mm, cut, config), daemon=True
+            target=self._print_worker,
+            args=(groups, lang, ancho_mm, alto_mm, gap_mm, dpi, cut, config),
+            daemon=True,
         )
         thread.start()
 
     def _print_worker(
         self,
         groups: list[LabelGroup],
+        lang: str,
         ancho_mm: float,
         alto_mm: Optional[float],
+        gap_mm: float,
+        dpi: int,
         cut: bool,
         config: PrinterConfig,
     ):
@@ -388,13 +498,19 @@ class App(tk.Tk):
             return
 
         total = sum(g.quantity for g in groups)
-        self.log_queue.put(f"Imprimiendo {len(groups)} producto(s), {total} etiqueta(s) en total…")
-        done = 0
+        self.log_queue.put(
+            f"Imprimiendo {len(groups)} producto(s), {total} etiqueta(s) en total (lenguaje {lang.upper()})…"
+        )
         try:
-            for g in groups:
-                print_group(printer, g, ancho_mm, alto_mm=alto_mm, cut=cut)
-                done += g.quantity
-                self.log_queue.put(f"  OK: {g.code} x{g.quantity} ({done}/{total})")
+            if lang == "tspl":
+                print_batch_tspl(printer, groups, ancho_mm, alto_mm, gap_mm=gap_mm, dpi=dpi)
+                self.log_queue.put(f"  OK: {len(groups)} producto(s) mandados en un solo trabajo TSPL.")
+            else:
+                done = 0
+                for g in groups:
+                    print_group(printer, g, ancho_mm, alto_mm=alto_mm, cut=cut)
+                    done += g.quantity
+                    self.log_queue.put(f"  OK: {g.code} x{g.quantity} ({done}/{total})")
 
             if config.backend == "dummy":
                 data = getattr(printer, "output", b"")

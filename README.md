@@ -95,18 +95,46 @@ pueden hablar directo por USB. Para eso:
 
 ## Convertirla en un .exe (opcional, para no depender de tener Python instalado)
 
+Esto hay que correrlo en Windows (PyInstaller arma el ejecutable para el sistema
+operativo donde se ejecuta, no se puede generar un .exe de Windows desde Linux/Mac).
+
 ```bash
 pip install pyinstaller
-pyinstaller --onefile --windowed app.py
+pyinstaller --onefile --windowed --name EtiquetasML app.py
 ```
 
-El ejecutable queda en `dist/app.exe`.
+El ejecutable queda en `dist/EtiquetasML.exe` -- es ese único archivo el que hay
+que compartir, no toda la carpeta `dist/`.
+
+Si querés un ícono propio, agregá `--icon=mi_icono.ico` al comando (tiene que ser
+un `.ico`, no `.png`).
+
+### Si el .exe no abre o tira error de módulo faltante
+
+`python-escpos` importa `pywin32` (`win32print`) y `pyusb` (`usb.core`) de forma
+perezosa (recién cuando se usan, no al arrancar), y a veces PyInstaller no los
+detecta solo. Si el ejecutable no abre, o se cierra solo al tocar "Probar
+conexión"/"Imprimir", corré en cambio:
+
+```bash
+pyinstaller --onefile --windowed --name EtiquetasML ^
+  --hidden-import=win32print --hidden-import=win32timezone ^
+  --hidden-import=usb.backend.libusb1 --hidden-import=usb.backend.libusb0 ^
+  app.py
+```
+
+(el `^` es el separador de línea de `cmd`; si usás PowerShell cambialo por
+`` ` ``, o escribí todo en una sola línea).
+
+Para ver el error real si el .exe se cierra sin avisar nada, sacale el
+`--windowed` una vez (así corre con consola) y mirá qué traceback tira.
 
 ## Estructura del proyecto
 
 ```
-zpl_parser.py       # extrae código de barras / descripción / SKU del ZPL
-label_render.py      # arma el texto de la etiqueta (wrap de la descripción)
-printer_backend.py   # conexión con la impresora (python-escpos)
-app.py                # interfaz gráfica (Tkinter)
+zpl_parser.py        # extrae código de barras / descripción / SKU del ZPL
+label_render.py       # arma el texto de la etiqueta en ESC/POS (wrap de la descripción)
+tspl_backend.py        # genera comandos TSPL (impresoras de etiquetas genéricas/TSC)
+printer_backend.py      # conexión con la impresora (python-escpos / TSPL crudo)
+app.py                   # interfaz gráfica (Tkinter)
 ```

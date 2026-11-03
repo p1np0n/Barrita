@@ -65,7 +65,8 @@ class App(tk.Tk):
     def __init__(self):
         super().__init__()
         self.title("Etiquetas ML → Impresora térmica")
-        self.geometry("980x620")
+        self.geometry("1000x950")
+        self.minsize(900, 750)
 
         self.groups: list[LabelGroup] = []
         self.log_queue: "queue.Queue[str]" = queue.Queue()
